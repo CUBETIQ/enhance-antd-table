@@ -21,7 +21,9 @@
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
     "typescript": "link:../node_modules/typescript",
-    "antd-table-search": "link:.."
+    "antd-table-search": "link:..",
+    "@antd": "link:../node_modules/@ant-design",
+    "antd": "link:../node_modules/antd"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
