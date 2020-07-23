@@ -28,4 +28,3 @@ class Example extends Component {
 ## License
 
 MIT © [LyhourChhen](https://github.com/LyhourChhen)
-# antd-table-search
