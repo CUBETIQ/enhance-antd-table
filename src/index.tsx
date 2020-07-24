@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css'
-import { Table } from 'antd'
+import { Button, Input, Table } from 'antd'
 import { TableProps, ColumnProps } from 'antd/es/table'
 import React from 'react'
 import ActionMenu from './components/actionMenu'
@@ -25,11 +25,24 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   ]
   return (
     <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, marginBottom: 10 }}>
+        <div style={{ display: 'flex' }}>
+          <div>
+            <Button>Create</Button>
+          </div>
+          <span style={{margin:10}}/>
+          <div>
+            <Button>Print</Button>
+          </div>
+        </div>
+        <div>
+          <Input placeholder="Search"/>
+        </div>
+      </div>
       <Table
         bordered={props.bordered}
         dataSource={props.newSources}
         columns={defaultColumns}
-
       />
     </div>
   )
