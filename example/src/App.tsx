@@ -1,13 +1,18 @@
 import React from 'react'
-
-import { ExampleComponent } from 'antd-table-search'
-import 'antd-table-search/dist/index.css'
-import { DatePicker } from 'antd'
+import { EnhanceAntdTable } from 'enhance-antd-table'
 const App = () => {
   return (
     <div>
-      <ExampleComponent text='Create React Library Mother fucker 😄' />
-      <DatePicker />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}
+      >
+        <EnhanceAntdTable text={'EnhandAntTable 😄'} />
+      </div>
     </div>
   )
 }

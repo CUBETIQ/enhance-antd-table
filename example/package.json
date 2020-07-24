@@ -1,5 +1,5 @@
 {
-  "name": "antd-table-search-example",
+  "name": "enhance-antd-table-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -21,7 +21,7 @@
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
     "typescript": "link:../node_modules/typescript",
-    "antd-table-search": "link:..",
+    "enhance-antd-table": "link:..",
     "@antd": "link:../node_modules/@ant-design",
     "antd": "link:../node_modules/antd"
   },
