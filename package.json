@@ -1,10 +1,10 @@
 {
-  "name": "antd-table-search",
+  "name": "enhance-antd-table",
   "version": "1.0.0",
-  "description": "Search each row in antd-table @antd",
+  "description": "enhance-antd-table antd-table @antd",
   "author": "LyhourChhen",
   "license": "MIT",
-  "repository": "LyhourChhen/antd-table-search",
+  "repository": "LyhourChhen/enhance-antd-table",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -63,6 +63,7 @@
     "dist"
   ],
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "antd": "^4.4.3"
   }
 }
