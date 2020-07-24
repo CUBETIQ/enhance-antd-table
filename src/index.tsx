@@ -2,17 +2,17 @@ import * as React from 'react'
 import styles from './styles.module.css'
 import { Tag, Space } from 'antd'
 import 'antd/dist/antd.css'
-import NewTable from './NewTable'
+import NewTable, { newColumnsInterface } from './NewTable'
 interface Props {
   text: string
 }
 
-const columns = [
+const columns: Array<newColumnsInterface> = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name',
-    render: (text: any) => <a>{text}</a>
+    key: 'name'
+    // render: (text: any) => <a>{text}</a>
   },
   {
     title: 'Age',

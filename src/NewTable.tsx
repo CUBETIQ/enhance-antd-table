@@ -1,11 +1,13 @@
 import { Table } from 'antd'
-import { TableProps } from 'antd/es/table'
+import { TableProps, ColumnProps } from 'antd/es/table'
 import React from 'react'
 
 interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
-  newColumns?: Array<any>
+  newColumns?: Array<newColumnsInterface>
   newSources?: Array<any>
 }
+
+export interface newColumnsInterface<T = any> extends ColumnProps<T> {}
 
 const NewTable: React.FC<enhanceTableInterface> = (props) => {
   return (
