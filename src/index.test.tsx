@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { EnhanceAntdTable } from '.'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(EnhanceAntdTable).toBeTruthy()
   })
 })
