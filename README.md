@@ -4,6 +4,14 @@
 
 [![NPM](https://img.shields.io/npm/v/antd-table-search.svg)](https://www.npmjs.com/package/enhance-antd-table) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## ✨ Features
+
+-   [x] Basic with fix Action column.
+-   [ ] Print the whole tables.
+-   [ ] Adjustment column.
+-   [ ] Search each column.
+
+
 ## Install
 
 ```bash
