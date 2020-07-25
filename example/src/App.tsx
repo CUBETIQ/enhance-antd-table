@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
-import { Tag } from 'antd'
+import { Tag, Modal } from 'antd'
 
 
 const App = () => {
-
+  const [modal, setModal] = useState<boolean>(false)
   const columns: Array<newColumnsInterface> = [
     {
       title: 'Name',
@@ -68,6 +68,13 @@ const App = () => {
   ]
   return (
     <div>
+      <Modal visible={modal}
+             centered={true}
+             onCancel={() => setModal(false)}
+             onOk={() => setModal(false)}
+      >
+        <h1>hi</h1>
+      </Modal>
       <div
         style={{
           display: 'flex',
@@ -77,6 +84,12 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
+          createButtonProps={{
+            onClick: () => setModal(true)
+          }}
+          printButtonProps={{
+            onClick: () => setModal(true)
+          }}
           bordered={true}
           newColumns={columns}
           newSources={data}
