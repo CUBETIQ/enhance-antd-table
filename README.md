@@ -1,6 +1,6 @@
 # Enhance-Antd-Table (Working in Prograss)
 
-> Search each row in antd-table @antd
+> Stil @antd-table but more and ++
 
 [![NPM](https://img.shields.io/npm/v/antd-table-search.svg)](https://www.npmjs.com/package/enhance-antd-table) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
