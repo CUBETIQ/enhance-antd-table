@@ -17,7 +17,6 @@ export interface newColumnsInterface<T = any> extends ColumnProps<T> {
 }
 
 export interface createButtonPropsInterface extends ButtonProps {
-
 }
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
@@ -26,7 +25,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     {
       title: 'Action',
       key: 'action',
-      render: () => <ActionMenu/>
+      render: () => <ActionMenu />
     }
   ]
   return (
@@ -36,8 +35,8 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           {props.createButtonProps !== undefined ? <div>
             <Button {...props.createButtonProps}>Create</Button>
             <span style={{ margin: 10 }}/>
-          </div> : null}
-          {props.printButtonProps !== undefined ? <div>
+            </div> : null}
+            {props.printButtonProps !== undefined ? <div>
             <Button {...props.printButtonProps}>Print</Button>
           </div> : null}
         </div>

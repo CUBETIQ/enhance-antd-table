@@ -1,8 +1,9 @@
 import { Button, Dropdown, Menu, Modal, Space } from 'antd'
 import { DeleteOutlined, DownOutlined, ExpandOutlined } from '@ant-design/icons/lib'
 import React, { useState } from 'react'
+import {createButtonPropsInterface} from "../index"
 
-const ActionMenu = () => {
+const ActionMenu = ({create: crea}) => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const menu = (
     <Menu>
