@@ -2,7 +2,7 @@
 
 > Stil @antd-table but more and ++
 
-[![NPM](https://img.shields.io/npm/v/antd-table-search.svg)](https://www.npmjs.com/package/enhance-antd-table) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/enhance-antd-table.svg)](https://www.npmjs.com/package/enhance-antd-table) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## ✨ Features
 
@@ -124,4 +124,4 @@ const Example = () => {
 
 ## License
 
-MIT © [LyhourChhen](https://github.com/LyhourChhen)
+MIT © 2020 [LyhourChhen](https://github.com/LyhourChhen)
