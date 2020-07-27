@@ -26,10 +26,31 @@ import React, { Component } from 'react'
 import EnhanceAntdTable from 'antd-table-search'
 import 'antd-table-search/dist/index.css'
 
-class Example extends Component {
-  render() {
-    return <EnhanceAntdTable />
-  }
+const Example = () => {
+    return (
+      <EnhanceAntdTable
+          createButtonProps={{
+            onClick: () => setModal(true)
+          }}
+          printButton={true}
+          actionDelete={{
+            onClick: () => console.log('render from action delete')
+          }}
+          actionDetails={{
+            onClick: () => console.log('render from action details')
+          }}
+          renderOwnActionMenu={
+            <Menu>
+              <Menu.Item key={uuid()} icon={<DeleteOutlined/>}>
+                Delete
+              </Menu.Item>
+            </Menu>
+          }
+          bordered={true}
+          newColumns={columns}
+          newSources={data}
+     />
+  );
 }
 ```
 ## Props 
