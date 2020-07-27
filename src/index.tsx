@@ -3,15 +3,16 @@ import { Button, Input, Table } from 'antd'
 import { TableProps, ColumnProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
 import React, { useState } from 'react'
-import ActionMenu from './components/actionMenu'
-
+import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 
 interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   createButtonProps?: createButtonPropsInterface
   printButtonProps?: createButtonPropsInterface
-  searchBy?: string
+  searchBy?: string,
+  actionDetails?: actionMenuPropsInterface,
+  actionDelete?: actionMenuPropsInterface
 }
 
 export interface newColumnsInterface<T = any> extends ColumnProps<T> {
@@ -28,7 +29,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     {
       title: 'Action',
       key: 'action',
-      render: () => <ActionMenu/>
+      render: () => <ActionMenu delete={props.actionDelete} detail={props.actionDetails}/>
     }
   ]
   return (

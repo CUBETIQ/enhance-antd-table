@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+// @ts-ignore
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
 import { Tag, Modal } from 'antd'
 
 
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const columns: Array<newColumnsInterface> = [
     {
       title: 'Name',
@@ -75,6 +77,20 @@ const App = () => {
   ]
   return (
     <div>
+      <Modal
+        okButtonProps={{ type: 'primary' }}
+        okText={'Yes'}
+        cancelText={'No'}
+        centered={true}
+        title={'Delete'}
+        width={350}
+        visible={openDeleteModal}
+        onCancel={() => setOpenDeleteModal(false)
+        }>
+        <div style={{ alignItems: 'center' }}>
+          <h3>Are you sure you want to delete this?</h3>
+        </div>
+      </Modal>
       <Modal visible={modal}
              centered={true}
              onCancel={() => setModal(false)}
