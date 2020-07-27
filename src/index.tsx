@@ -12,7 +12,8 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   printButtonProps?: createButtonPropsInterface
   searchBy?: string,
   actionDetails?: actionMenuPropsInterface,
-  actionDelete?: actionMenuPropsInterface
+  actionDelete?: actionMenuPropsInterface,
+  renderOwnActionMenu?: React.ReactNode
 }
 
 export interface newColumnsInterface<T = any> extends ColumnProps<T> {
@@ -29,7 +30,9 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     {
       title: 'Action',
       key: 'action',
-      render: () => <ActionMenu delete={props.actionDelete} detail={props.actionDetails}/>
+      render: () => <ActionMenu delete={props.actionDelete}
+                                detail={props.actionDetails}
+                                renderNew={props.renderOwnActionMenu}/>
     }
   ]
   return (
