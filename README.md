@@ -33,15 +33,15 @@ class Example extends Component {
 }
 ```
 ## Props 
-
- - **newColumns**: Your table column but should include the interface from <newColumnsInterface>
+ - **Everything from AntdProps and plus+**
+ - **newColumns**: Your table column but should include the interface from interface.
  - **newSources**: Your sources data.
  - **createButtonProps**: Create button props.
  - **printButton**: Do you need print in table or not? 
  - **searchBy**: Define the search by each column (Not available).
  - **actionDetails**: more props for action details.
  - **actionDelete**: more props for action delete. 
- - **renderOwnActionMenu**: Render own action menu but will be overriden the default action menu. <React.Node>
+ - **renderOwnActionMenu**: Render own action menu but will be overriden the default action menu.
   
 
 ## License
