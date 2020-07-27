@@ -7,15 +7,15 @@
 ## ✨ Features
 
 -   [x] Basic with fix Action column.
--   [ ] Print the whole tables.
--   [ ] Adjustment column.
--   [x] Search each column.
+-   [x] Print the whole tables.
+-   [x] Adjustment column.
+-   [x] Search in the tables.
 
 
 ## Install
 
 ```bash
-npm install --save enhance-antd-table
+yarn add enhance-antd-table
 ```
 
 ## Usage

@@ -67,6 +67,7 @@
     "@types/styled-components": "^5.1.1",
     "@types/uuid": "^8.0.0",
     "antd": "^4.4.3",
+    "react-to-print": "^2.9.0",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
   }

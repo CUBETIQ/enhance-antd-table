@@ -112,9 +112,7 @@ const App = () => {
           createButtonProps={{
             onClick: () => setModal(true)
           }}
-          printButtonProps={{
-            onClick: () => setModal(true)
-          }}
+          printButton={true}
           actionDelete={{
             onClick: () => console.log('render from action delete')
           }}

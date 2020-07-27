@@ -1,15 +1,16 @@
+import React, { useState, useRef } from 'react'
 import 'antd/dist/antd.css'
 import { Button, Input, Table } from 'antd'
+import ReactToPrint from 'react-to-print'
 import { TableProps, ColumnProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
-import React, { useState } from 'react'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 
 interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   createButtonProps?: createButtonPropsInterface
-  printButtonProps?: createButtonPropsInterface
+  printButton?: boolean
   searchBy?: string,
   actionDetails?: actionMenuPropsInterface,
   actionDelete?: actionMenuPropsInterface,
@@ -25,6 +26,10 @@ export interface createButtonPropsInterface extends ButtonProps {
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
   const [searchValue, setSearchValue] = useState<string>('')
+  const componentRef = useRef(null)
+  const reactToPrintContent = React.useCallback(() => {
+    return componentRef.current
+  }, [componentRef.current])
   const defaultColumns: Array<newColumnsInterface> = [
     ...(props.newColumns || []),
     {
@@ -35,6 +40,12 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
                                 renderNew={props.renderOwnActionMenu}/>
     }
   ]
+
+  const reactToPrintTrigger = React.useCallback(() => {
+    return <Button>Print</Button>
+  }, [])
+
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, marginBottom: 10 }}>
@@ -43,8 +54,8 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             <Button {...props.createButtonProps}>Create</Button>
             <span style={{ margin: 10 }}/>
           </div> : null}
-          {props.printButtonProps !== undefined ? <div>
-            <Button {...props.printButtonProps}>Print</Button>
+          {props.printButton === true ? <div>
+            <ReactToPrint content={reactToPrintContent} trigger={reactToPrintTrigger}/>
           </div> : null}
         </div>
         <div>
@@ -64,11 +75,13 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           />
         </div>
       </div>
-      <Table
-        bordered={props.bordered}
-        dataSource={dataSource}
-        columns={defaultColumns}
-      />
+      <div ref={componentRef}>
+        <Table
+          bordered={props.bordered}
+          dataSource={dataSource}
+          columns={defaultColumns}
+        />
+      </div>
     </div>
   )
 }
