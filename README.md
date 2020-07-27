@@ -9,7 +9,7 @@
 -   [x] Basic with fix Action column.
 -   [ ] Print the whole tables.
 -   [ ] Adjustment column.
--   [ ] Search each column.
+-   [x] Search each column.
 
 
 ## Install
