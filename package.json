@@ -25,7 +25,6 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "antd": "3.26.18",
     "react": "^16.0.0"
   },
   "devDependencies": {
