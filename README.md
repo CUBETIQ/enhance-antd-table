@@ -1,4 +1,4 @@
-# Enhance-Antd-Table
+# Enhance-Antd-Table (Experiement mode)
 
 > Stil @antd-table but more and ++
 
