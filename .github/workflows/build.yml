@@ -14,14 +14,14 @@ jobs:
     name: Node ${{ matrix.node }} sample
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-          registry-url: 'registry.npmjs.org'
-      - run: yarn install
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: '10.x'
+#           registry-url: 'registry.npmjs.org'
+#       - run: yarn install
+#       - run: yarn publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
       - uses: actions/setup-node@v1
         with:
           registry-url: 'https://npm.pkg.github.com'
