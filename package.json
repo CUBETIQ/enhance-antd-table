@@ -70,10 +70,5 @@
     "react-to-print": "^2.9.0",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public",
-    "tag": "1.0.3"
   }
 }
