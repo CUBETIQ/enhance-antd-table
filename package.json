@@ -1,6 +1,6 @@
 {
-  "name": "enhance-antd-table",
-  "version": "1.0.3",
+  "name": "@lyhourchhen/enhance-antd-table",
+  "version": "1.0.4",
   "description": "enhance-antd-table antd-table @antd",
   "author": "LyhourChhen",
   "license": "MIT",
@@ -72,6 +72,8 @@
     "uuid": "^8.2.0"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public",
+    "tag": "1.0.3"
   }
 }
