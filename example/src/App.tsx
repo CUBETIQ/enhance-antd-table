@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 // @ts-ignore
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
 //@ts-ignore
 import { Tag, Modal, Menu, Button } from 'antd'
 import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
+import FormCreate from './FormCreate'
+
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 }
+}
+const tailLayout = {
+  wrapperCol: { offset: 0, span: 16 }
+}
+
+const formProps = {
+  layout,
+  tailLayout
+}
 
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
+  const setDataSourceRef = useRef<any>()
   const columns: Array<newColumnsInterface> = [
     {
       title: 'Name',
@@ -94,12 +109,27 @@ const App = () => {
         </div>
       </Modal>
       <Modal
+        title='Create'
         visible={modal}
+        footer={null}
         centered={true}
         onCancel={() => setModal(false)}
         onOk={() => setModal(false)}
       >
-        <h1>hi</h1>
+        <FormCreate
+          {...formProps}
+          onFinish={(value) => {
+            setDataSourceRef.current((old: any[]) => {
+              return [
+                ...old,
+                {
+                  key: old.length + 1,
+                  ...value
+                }
+              ]
+            })
+          }}
+        />
       </Modal>
       <div
         style={{
@@ -110,7 +140,8 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
-          renderCreateButton={() => {
+          renderCreateButton={({ setDataSource }) => {
+            setDataSourceRef.current = setDataSource
             return <Button onClick={() => setModal(true)}>Create</Button>
           }}
           printButton={true}
