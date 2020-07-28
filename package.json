@@ -1,5 +1,5 @@
 {
-  "name": "@lyhourchhen/enhance-antd-table",
+  "name": "enhance-antd-table",
   "version": "1.0.8",
   "description": "enhance-antd-table antd-table @antd",
   "author": "LyhourChhen",
@@ -70,10 +70,5 @@
     "react-to-print": "^2.9.0",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-    "access": "public",
-    "tag": "1.0.3"
   }
 }
