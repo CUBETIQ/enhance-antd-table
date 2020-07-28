@@ -7,8 +7,6 @@ import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
 
-<<<<<<< HEAD
-=======
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 18 }
@@ -22,7 +20,6 @@ const formProps = {
   tailLayout
 }
 
->>>>>>> origin/development
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
@@ -112,13 +109,9 @@ const App = () => {
         </div>
       </Modal>
       <Modal
-<<<<<<< HEAD
-        visible={modal}
-=======
         title='Create'
         visible={modal}
         footer={null}
->>>>>>> origin/development
         centered={true}
         onCancel={() => setModal(false)}
         onOk={() => setModal(false)}
@@ -160,9 +153,6 @@ const App = () => {
           })}
           renderOwnActionMenu={({ record, index }) => (
             <Menu>
-<<<<<<< HEAD
-              <Menu.Item key={uuid()} icon={<DeleteOutlined />}>
-=======
               <Menu.Item
                 key={uuid()}
                 icon={<DeleteOutlined />}
@@ -170,7 +160,6 @@ const App = () => {
                   console.log(record, index, 'hello')
                 }}
               >
->>>>>>> origin/development
                 Delete
               </Menu.Item>
             </Menu>
