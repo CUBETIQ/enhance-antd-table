@@ -11,15 +11,23 @@ interface ColumnVisibleControllerProps {
   getDefaultColumns: () => newColumnsInterface[]
 }
 
+const dropdownId = '__dropdown-visible__'
+
 const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
   props
 ) => {
   const { getDefaultColumns, visibleColumns, setVisibleColumns } = props
+  //@ts-ignore
   const [dropdownVisible, setDropdownVisible] = useState(false)
 
   const renderMenus = () => {
     return (
-      <Menu>
+      <Menu
+        style={{
+          maxHeight: 300,
+          overflowY: 'auto'
+        }}
+      >
         {getDefaultColumns().map((item, _, defaultColumns) => {
           const checked = visibleColumns.some(
             (col) => col.dataIndex === item.dataIndex
@@ -52,16 +60,19 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
   }
 
   return (
-    <Dropdown
-      overlay={renderMenus()}
-      trigger={['click']}
-      visible={dropdownVisible}
-      onVisibleChange={(visible) => {
-        setDropdownVisible(visible)
-      }}
-    >
-      <Button>Columns</Button>
-    </Dropdown>
+    <div id={dropdownId}>
+      <Dropdown
+        overlay={renderMenus()}
+        trigger={['click']}
+        visible={dropdownVisible}
+        getPopupContainer={() => document.getElementById(dropdownId)!}
+        onVisibleChange={(visible) => {
+          setDropdownVisible(visible)
+        }}
+      >
+        <Button>Columns</Button>
+      </Dropdown>
+    </div>
   )
 }
 
