@@ -11,17 +11,15 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newSources?: Array<any>
   createButtonProps?: createButtonPropsInterface
   printButton?: boolean
-  searchBy?: string,
-  actionDetails?: actionMenuPropsInterface,
-  actionDelete?: actionMenuPropsInterface,
-  renderOwnActionMenu?: React.ReactNode
+  searchBy?: string
+  actionDetails?: actionMenuPropsInterface
+  actionDelete?: actionMenuPropsInterface
+  renderOwnActionMenu?: () => React.ReactNode
 }
 
-export interface newColumnsInterface<T = any> extends ColumnProps<T> {
-}
+export interface newColumnsInterface<T = any> extends ColumnProps<T> {}
 
-export interface createButtonPropsInterface extends ButtonProps {
-}
+export interface createButtonPropsInterface extends ButtonProps {}
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
@@ -35,9 +33,16 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     {
       title: 'Action',
       key: 'action',
-      render: () => <ActionMenu delete={props.actionDelete}
-                                detail={props.actionDetails}
-                                renderNew={props.renderOwnActionMenu}/>
+      render: () => {
+        return props.renderOwnActionMenu ? (
+          props.renderOwnActionMenu()
+        ) : (
+          <ActionMenu
+            delete={props.actionDelete}
+            detail={props.actionDetails}
+          />
+        )
+      }
     }
   ]
 
@@ -45,33 +50,48 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     return <Button>Print</Button>
   }, [])
 
-
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, marginBottom: 10 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginTop: 10,
+          marginBottom: 10
+        }}
+      >
         <div style={{ display: 'flex' }}>
-          {props.createButtonProps !== undefined ? <div>
-            <Button {...props.createButtonProps}>Create</Button>
-            <span style={{ margin: 10 }}/>
-          </div> : null}
-          {props.printButton === true ? <div>
-            <ReactToPrint content={reactToPrintContent} trigger={reactToPrintTrigger}/>
-          </div> : null}
+          {props.createButtonProps !== undefined ? (
+            <div>
+              <Button {...props.createButtonProps}>Create</Button>
+              <span style={{ margin: 10 }} />
+            </div>
+          ) : null}
+          {props.printButton === true ? (
+            <div>
+              <ReactToPrint
+                content={reactToPrintContent}
+                trigger={reactToPrintTrigger}
+              />
+            </div>
+          ) : null}
         </div>
         <div>
-          <Input placeholder="Search"
-                 value={searchValue}
-                 onChange={(e) => {
-                   const currentSearchValue = e.target.value
-                   setSearchValue(currentSearchValue)
+          <Input
+            placeholder='Search'
+            value={searchValue}
+            onChange={(e) => {
+              const currentSearchValue = e.target.value
+              setSearchValue(currentSearchValue)
 
-                   const filteredData = props.newSources && props.newSources.filter(entry => {
-                       console.log(entry)
-                       return entry.name.includes(currentSearchValue)
-                     }
-                   )
-                   setDataSource(filteredData)
-                 }}
+              const filteredData =
+                props.newSources &&
+                props.newSources.filter((entry) => {
+                  console.log(entry)
+                  return entry.name.includes(currentSearchValue)
+                })
+              setDataSource(filteredData)
+            }}
           />
         </div>
       </div>

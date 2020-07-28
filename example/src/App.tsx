@@ -5,7 +5,6 @@ import { Tag, Modal, Menu } from 'antd'
 import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
 
-
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
@@ -87,16 +86,17 @@ const App = () => {
         title={'Delete'}
         width={350}
         visible={openDeleteModal}
-        onCancel={() => setOpenDeleteModal(false)
-        }>
+        onCancel={() => setOpenDeleteModal(false)}
+      >
         <div style={{ alignItems: 'center' }}>
           <h3>Are you sure you want to delete this?</h3>
         </div>
       </Modal>
-      <Modal visible={modal}
-             centered={true}
-             onCancel={() => setModal(false)}
-             onOk={() => setModal(false)}
+      <Modal
+        visible={modal}
+        centered={true}
+        onCancel={() => setModal(false)}
+        onOk={() => setModal(false)}
       >
         <h1>hi</h1>
       </Modal>
@@ -119,13 +119,13 @@ const App = () => {
           actionDetails={{
             onClick: () => console.log('render from action details')
           }}
-          renderOwnActionMenu={
+          renderOwnActionMenu={() => (
             <Menu>
-              <Menu.Item key={uuid()} icon={<DeleteOutlined/>}>
+              <Menu.Item key={uuid()} icon={<DeleteOutlined />}>
                 Delete
               </Menu.Item>
             </Menu>
-          }
+          )}
           bordered={true}
           newColumns={columns}
           newSources={data}
