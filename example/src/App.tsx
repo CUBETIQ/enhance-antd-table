@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // @ts-ignore
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
 //@ts-ignore
-import { Tag, Modal, Menu } from 'antd'
+import { Tag, Modal, Menu, Button } from 'antd'
 import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
 
@@ -110,8 +110,8 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
-          createButtonProps={{
-            onClick: () => setModal(true)
+          renderCreateButton={() => {
+            return <Button onClick={() => setModal(true)}>Create</Button>
           }}
           printButton={true}
           actionDelete={({ record, index }) => ({

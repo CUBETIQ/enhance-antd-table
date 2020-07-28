@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react'
 import 'antd/dist/antd.css'
-import { Button, Input, Table } from 'antd'
+import { Button, Input, Table, Space } from 'antd'
 import ReactToPrint from 'react-to-print'
 import { TableProps, ColumnProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
@@ -15,7 +15,6 @@ export interface ComponentExposeState {
 interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
-  createButtonProps?: createButtonPropsInterface
   printButton?: boolean
   searchBy?: string
   actionDetails?: (
@@ -25,6 +24,9 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
   renderOwnActionMenu?: (
+    ComponentExposeState: ComponentExposeState
+  ) => React.ReactNode
+  renderCreateButton?: (
     ComponentExposeState: ComponentExposeState
   ) => React.ReactNode
 }
@@ -83,13 +85,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           marginBottom: 10
         }}
       >
-        <div style={{ display: 'flex' }}>
-          {props.createButtonProps !== undefined ? (
-            <div>
-              <Button {...props.createButtonProps}>Create</Button>
-              <span style={{ margin: 10 }} />
-            </div>
-          ) : null}
+        <Space>
+          {props.renderCreateButton &&
+            props.renderCreateButton({
+              setDataSource
+            })}
           {props.printButton === true ? (
             <div>
               <ReactToPrint
@@ -98,7 +98,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               />
             </div>
           ) : null}
-        </div>
+        </Space>
         <div>
           <Input
             placeholder='Search'
