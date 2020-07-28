@@ -32,7 +32,6 @@ const ActionMenu: React.FC<ActionMenuInterface> = (props) => {
   )
   return (
     <div>
-      <div></div>
       <Space size='middle'>
         <Dropdown overlay={menu}>
           <Button>
