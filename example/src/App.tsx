@@ -1,13 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 // @ts-ignore
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
-import { Tag, Modal, Menu } from 'antd'
+//@ts-ignore
+import { Tag, Modal, Menu, Button } from 'antd'
 import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
+import FormCreate from './FormCreate'
 
+<<<<<<< HEAD
+=======
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 18 }
+}
+const tailLayout = {
+  wrapperCol: { offset: 0, span: 20 }
+}
+
+const formProps = {
+  layout,
+  tailLayout
+}
+
+>>>>>>> origin/development
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
+  const setDataSourceRef = useRef<any>()
   const columns: Array<newColumnsInterface> = [
     {
       title: 'Name',
@@ -93,12 +112,31 @@ const App = () => {
         </div>
       </Modal>
       <Modal
+<<<<<<< HEAD
         visible={modal}
+=======
+        title='Create'
+        visible={modal}
+        footer={null}
+>>>>>>> origin/development
         centered={true}
         onCancel={() => setModal(false)}
         onOk={() => setModal(false)}
       >
-        <h1>hi</h1>
+        <FormCreate
+          {...formProps}
+          onFinish={(value) => {
+            setDataSourceRef.current((old: any[]) => {
+              return [
+                ...old,
+                {
+                  key: old.length + 1,
+                  ...value
+                }
+              ]
+            })
+          }}
+        />
       </Modal>
       <div
         style={{
@@ -109,23 +147,34 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
-          createButtonProps={{
-            onClick: () => setModal(true)
+          renderCreateButton={({ setDataSource }) => {
+            setDataSourceRef.current = setDataSource
+            return <Button onClick={() => setModal(true)}>Create</Button>
           }}
           printButton={true}
-          actionDelete={{
-            onClick: () => console.log('render from action delete')
-          }}
-          actionDetails={{
-            onClick: () => console.log('render from action details')
-          }}
-          renderOwnActionMenu={
+          actionDelete={({ record, index }) => ({
+            onClick: () => console.log('delete ', record, 'at ' + index)
+          })}
+          actionDetails={({ record, index }) => ({
+            onClick: () => console.log(record, 'at ' + index)
+          })}
+          renderOwnActionMenu={({ record, index }) => (
             <Menu>
+<<<<<<< HEAD
               <Menu.Item key={uuid()} icon={<DeleteOutlined />}>
+=======
+              <Menu.Item
+                key={uuid()}
+                icon={<DeleteOutlined />}
+                onClick={() => {
+                  console.log(record, index, 'hello')
+                }}
+              >
+>>>>>>> origin/development
                 Delete
               </Menu.Item>
             </Menu>
-          }
+          )}
           bordered={true}
           newColumns={columns}
           newSources={data}
