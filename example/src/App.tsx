@@ -9,10 +9,10 @@ import FormCreate from './FormCreate'
 
 const layout = {
   labelCol: { span: 4 },
-  wrapperCol: { span: 16 }
+  wrapperCol: { span: 18 }
 }
 const tailLayout = {
-  wrapperCol: { offset: 0, span: 16 }
+  wrapperCol: { offset: 0, span: 20 }
 }
 
 const formProps = {
