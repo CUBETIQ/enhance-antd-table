@@ -11,10 +11,11 @@
   "env": {
     "node": true
   },
+
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 7,
+    "sourceType": "module",
     "ecmaFeatures": {
-      "legacyDecorators": true,
       "jsx": true
     }
   },
