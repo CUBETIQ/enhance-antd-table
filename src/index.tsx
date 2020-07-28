@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import 'antd/dist/antd.css'
 import { Button, Input, Table } from 'antd'
 import ReactToPrint from 'react-to-print'
@@ -6,15 +6,27 @@ import { TableProps, ColumnProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 
+export interface ComponentExposeState {
+  record?: any
+  index?: number
+  setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
+}
+
 interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   createButtonProps?: createButtonPropsInterface
   printButton?: boolean
   searchBy?: string
-  actionDetails?: actionMenuPropsInterface
-  actionDelete?: actionMenuPropsInterface
-  renderOwnActionMenu?: () => React.ReactNode
+  actionDetails?: (
+    ComponentExposeState: ComponentExposeState
+  ) => actionMenuPropsInterface
+  actionDelete?: (
+    ComponentExposeState: ComponentExposeState
+  ) => actionMenuPropsInterface
+  renderOwnActionMenu?: (
+    ComponentExposeState: ComponentExposeState
+  ) => React.ReactNode
 }
 
 export interface newColumnsInterface<T = any> extends ColumnProps<T> {}
@@ -28,23 +40,34 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const reactToPrintContent = React.useCallback(() => {
     return componentRef.current
   }, [componentRef.current])
-  const defaultColumns: Array<newColumnsInterface> = [
-    ...(props.newColumns || []),
-    {
-      title: 'Action',
-      key: 'action',
-      render: () => {
-        return props.renderOwnActionMenu ? (
-          props.renderOwnActionMenu()
-        ) : (
-          <ActionMenu
-            delete={props.actionDelete}
-            detail={props.actionDetails}
-          />
-        )
+
+  const getDefaultColumns: () => Array<
+    newColumnsInterface
+  > = useCallback(() => {
+    return [
+      ...(props.newColumns || []),
+      {
+        title: 'Action',
+        key: 'name',
+        render: (record, _, index) => {
+          const stateToExpose = {
+            record,
+            index,
+            setDataSource
+          }
+
+          return props.renderOwnActionMenu ? (
+            props.renderOwnActionMenu(stateToExpose)
+          ) : (
+            <ActionMenu
+              delete={props.actionDelete && props.actionDelete(stateToExpose)}
+              detail={props.actionDetails && props.actionDetails(stateToExpose)}
+            />
+          )
+        }
       }
-    }
-  ]
+    ]
+  }, [setDataSource])
 
   const reactToPrintTrigger = React.useCallback(() => {
     return <Button>Print</Button>
@@ -99,7 +122,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         <Table
           bordered={props.bordered}
           dataSource={dataSource}
-          columns={defaultColumns}
+          columns={getDefaultColumns()}
         />
       </div>
     </div>

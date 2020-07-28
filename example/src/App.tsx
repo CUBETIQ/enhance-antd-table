@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 // @ts-ignore
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
+//@ts-ignore
 import { Tag, Modal, Menu } from 'antd'
 import { v4 as uuid } from 'uuid'
 import { DeleteOutlined } from '@ant-design/icons/lib'
@@ -113,15 +114,21 @@ const App = () => {
             onClick: () => setModal(true)
           }}
           printButton={true}
-          actionDelete={{
-            onClick: () => console.log('render from action delete')
-          }}
-          actionDetails={{
-            onClick: () => console.log('render from action details')
-          }}
-          renderOwnActionMenu={() => (
+          actionDelete={({ record, index }) => ({
+            onClick: () => console.log('delete ', record, 'at ' + index)
+          })}
+          actionDetails={({ record, index }) => ({
+            onClick: () => console.log(record, 'at ' + index)
+          })}
+          renderOwnActionMenu={({ record, index }) => (
             <Menu>
-              <Menu.Item key={uuid()} icon={<DeleteOutlined />}>
+              <Menu.Item
+                key={uuid()}
+                icon={<DeleteOutlined />}
+                onClick={() => {
+                  console.log(record, index, 'hello')
+                }}
+              >
                 Delete
               </Menu.Item>
             </Menu>

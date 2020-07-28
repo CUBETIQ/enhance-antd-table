@@ -8,7 +8,9 @@ import { v4 as uuid } from 'uuid'
 import { MenuProps } from 'antd/es/menu'
 import React from 'react'
 
-export interface actionMenuPropsInterface extends MenuProps {}
+export interface actionMenuPropsInterface extends MenuProps {
+  [index: string]: any
+}
 
 interface ActionMenuInterface {
   delete?: any
