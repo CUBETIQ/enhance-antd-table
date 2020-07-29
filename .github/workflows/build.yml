@@ -1,0 +1,46 @@
+name: Build Packages and Release
+on:
+  push:
+    branches: [release]
+  pull_request:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        node: ['10']
+    name: Node ${{ matrix.node }} sample
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+      - uses: actions/setup-node@v1
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH }}
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: '10.x'
+#           registry-url: 'registry.npmjs.org'
+#       - run: yarn install
+#       - run: yarn publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     registry-url: 'https://npm.pkg.github.com'
+      # - run: yarn install
+      # - run: yarn publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GH }}
