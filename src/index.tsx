@@ -6,6 +6,7 @@ import { TableProps, ColumnProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
+import { ColumnTitle } from 'antd/es/table/interface'
 
 export interface ComponentExposeState {
   record?: any
@@ -38,6 +39,7 @@ export interface newColumnsInterface<T = any> extends ColumnProps<T> {
 
 export interface visibleColumnsInterface {
   visible: boolean
+  title: ColumnTitle<any>
   dataIndex: string
 }
 
@@ -84,6 +86,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [visibleColumns, setVisibleColumns] = useState(() =>
     getDefaultColumns().map((item) => ({
       dataIndex: item.dataIndex,
+      title: item.title,
       visible: true
     }))
   )
@@ -111,7 +114,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           <ColumnVisibleController
             setVisibleColumns={setVisibleColumns}
             visibleColumns={visibleColumns}
-            getDefaultColumns={getDefaultColumns}
           />
           {props.printButton === true ? (
             <div>

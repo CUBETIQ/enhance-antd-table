@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Dropdown, Menu, Checkbox } from 'antd'
-import { newColumnsInterface, visibleColumnsInterface } from '..'
+import { visibleColumnsInterface } from '..'
 //@ts-ignore
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
@@ -9,7 +9,6 @@ interface ColumnVisibleControllerProps {
     React.SetStateAction<visibleColumnsInterface[] | undefined>
   >
   visibleColumns: visibleColumnsInterface[]
-  getDefaultColumns: () => newColumnsInterface[]
 }
 
 const dropdownId = '__dropdown-visible__'
@@ -18,8 +17,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
   props
 ) => {
   //@ts-ignore
-  const { getDefaultColumns, visibleColumns, setVisibleColumns } = props
-  //@ts-ignore
+  const { visibleColumns, setVisibleColumns } = props
   const [dropdownVisible, setDropdownVisible] = useState(false)
 
   const renderMenus = () => {
@@ -56,7 +54,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
               overflowY: 'auto'
             }}
           >
-            {getDefaultColumns().map((item) => {
+            {visibleColumns.map((item) => {
               return (
                 <Menu.Item key={item.dataIndex}>
                   <Checkbox value={item.dataIndex}>{item.title}</Checkbox>
