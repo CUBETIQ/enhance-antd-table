@@ -22,40 +22,46 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
 
   const renderMenus = () => {
     return (
-      <Menu
-        style={{
-          maxHeight: 300,
-          overflowY: 'auto'
-        }}
-      >
-        {getDefaultColumns().map((item, _, defaultColumns) => {
-          const checked = visibleColumns.some(
-            (col) => col.dataIndex === item.dataIndex
-          )
+      <div style={{ border: '1px solid #eee' }}>
+        <Menu
+          style={{
+            maxHeight: 300,
+            overflowY: 'auto'
+          }}
+        >
+          {getDefaultColumns().map((item) => {
+            const checked = visibleColumns.some(
+              (col) => col.dataIndex === item.dataIndex && col.visible
+            )
 
-          const checkboxChange = (e: CheckboxChangeEvent) => {
-            setVisibleColumns((oldColumns) => {
-              let index = oldColumns!.findIndex(
-                (oldColumn) => oldColumn.dataIndex === item.dataIndex
-              )
-              oldColumns![index] = {
-                ...oldColumns![index],
-                visible: e.target.checked
-              }
+            const checkboxChange = (e: CheckboxChangeEvent) => {
+              setVisibleColumns((oldColumns) => {
+                let index = oldColumns!.findIndex(
+                  (oldColumn) => oldColumn.dataIndex === item.dataIndex
+                )
+                oldColumns![index] = {
+                  ...oldColumns![index],
+                  visible: e.target.checked
+                }
 
-              //@ts-ignore
-              return [...oldColumns]
-            })
-          }
-          return (
-            <Menu.Item key={item.dataIndex}>
-              <Checkbox defaultChecked={checked} onChange={checkboxChange}>
-                {item.title}
-              </Checkbox>
-            </Menu.Item>
-          )
-        })}
-      </Menu>
+                //@ts-ignore
+                return [...oldColumns]
+              })
+            }
+            return (
+              <Menu.Item key={item.dataIndex}>
+                <Checkbox
+                  defaultChecked={checked}
+                  checked={checked}
+                  onChange={checkboxChange}
+                >
+                  {item.title}
+                </Checkbox>
+              </Menu.Item>
+            )
+          })}
+        </Menu>
+      </div>
     )
   }
 
