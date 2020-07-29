@@ -13,21 +13,21 @@ jobs:
     name: Node ${{ matrix.node }} 
     
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-      - uses: actions/setup-node@v1
-        with:
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH }}
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: '10.x'
+#           registry-url: 'https://registry.npmjs.org'
+#       - run: npm install
+#       - run: npm publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+#       - uses: actions/setup-node@v1
+#         with:
+#           registry-url: 'https://npm.pkg.github.com'
+#       - run: npm publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.GH }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
