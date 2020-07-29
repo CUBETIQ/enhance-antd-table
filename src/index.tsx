@@ -48,7 +48,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
   const [searchValue, setSearchValue] = useState<string>('')
   const componentRef = useRef(null)
-  const reactToPrintContent = React.useCallback(() => {
+  const reactToPrintContent = useCallback(() => {
     return componentRef.current
   }, [componentRef.current])
 
@@ -130,7 +130,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               const filteredData =
                 props.newSources &&
                 props.newSources.filter((entry) => {
-                  const lowerName = entry.name.toLocaleLowerCase()
+                  let lowerName = entry.name.toLocaleLowerCase()
                   let valueSearch = currentSearchValue.toLocaleLowerCase()
                   return lowerName.includes(valueSearch)
                 })
