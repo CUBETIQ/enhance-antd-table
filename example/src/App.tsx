@@ -140,7 +140,7 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
-          renderCreateButton={({ setDataSource }) => {
+          renderCreateButton={({ setDataSource }: any) => {
             setDataSourceRef.current = setDataSource
             return <Button onClick={() => setModal(true)}>Create</Button>
           }}
