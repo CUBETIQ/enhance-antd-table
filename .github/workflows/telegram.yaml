@@ -1,7 +1,6 @@
 name: telegram message
 on: [push]
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
