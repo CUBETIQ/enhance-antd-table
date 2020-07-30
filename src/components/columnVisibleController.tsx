@@ -9,6 +9,7 @@ interface ColumnVisibleControllerProps {
     React.SetStateAction<visibleColumnsInterface[] | undefined>
   >
   visibleColumns: visibleColumnsInterface[]
+  tableName: string
 }
 
 const dropdownId = '__dropdown-visible__'
@@ -30,6 +31,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
       })
 
       setVisibleColumns(newColumns)
+      localStorage.setItem(props.tableName, JSON.stringify(values))
     }
 
     let checkedCount = visibleColumns.reduce((acc, curr) => {
@@ -39,6 +41,21 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
     const checkboxAllChecked = visibleColumns.length === checkedCount
     const checkboxAllIntermediate =
       checkedCount > 0 && checkedCount < visibleColumns.length
+
+    const checkboxAllOnChange = (e: CheckboxChangeEvent) => {
+      const newVisibleColumns = visibleColumns.map((item) => ({
+        ...item,
+        visible: e.target.checked
+      }))
+      setVisibleColumns(newVisibleColumns)
+      const userColumnsVisibleCofig: string[] = e.target.checked
+        ? visibleColumns.map((item) => item.dataIndex)
+        : []
+      localStorage.setItem(
+        props.tableName,
+        JSON.stringify(userColumnsVisibleCofig)
+      )
+    }
 
     return (
       <div>
@@ -72,13 +89,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
           }}
         >
           <Checkbox
-            onChange={(e: CheckboxChangeEvent) => {
-              const newVisibleColumns = visibleColumns.map((item) => ({
-                ...item,
-                visible: e.target.checked
-              }))
-              setVisibleColumns(newVisibleColumns)
-            }}
+            onChange={checkboxAllOnChange}
             checked={checkboxAllChecked}
             indeterminate={checkboxAllIntermediate}
           >

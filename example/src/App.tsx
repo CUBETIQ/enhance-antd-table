@@ -140,6 +140,8 @@ const App = () => {
         }}
       >
         <EnhanceAntdTable
+          name={'exampleTable'}
+          withColumnsVisibleController={true}
           renderCreateButton={({ setDataSource }: any) => {
             setDataSourceRef.current = setDataSource
             return <Button onClick={() => setModal(true)}>Create</Button>

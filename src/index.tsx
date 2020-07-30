@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import 'antd/dist/antd.css'
 import { Button, Input, Table, Space } from 'antd'
 import ReactToPrint from 'react-to-print'
@@ -18,7 +18,9 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
+  withColumnsVisibleController?: boolean
   searchBy?: string
+  name: string
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
@@ -44,6 +46,8 @@ export interface visibleColumnsInterface {
 }
 
 export interface createButtonPropsInterface extends ButtonProps {}
+
+const tableNamePrefix = '__eTable__'
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
@@ -83,17 +87,44 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     ]
   }, [setDataSource])
 
-  const [visibleColumns, setVisibleColumns] = useState(() =>
-    getDefaultColumns().map((item) => ({
-      dataIndex: item.dataIndex,
-      title: item.title,
-      visible: true
-    }))
-  )
+  const [visibleColumns, setVisibleColumns] = useState<
+    visibleColumnsInterface[]
+  >([])
 
   const reactToPrintTrigger = React.useCallback(() => {
     return <Button>Print</Button>
   }, [])
+  const columnsVisibleConfigKey = useMemo(
+    () => tableNamePrefix + props.name,
+    []
+  )
+  useEffect(() => {
+    let userColumnsVisibleConfig: any = localStorage.getItem(
+      columnsVisibleConfigKey
+    )
+    let newColumnsVisible: visibleColumnsInterface[] = []
+    if (userColumnsVisibleConfig) {
+      userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
+
+      newColumnsVisible = getDefaultColumns().map((item) => {
+        return {
+          dataIndex: item.dataIndex,
+          title: item.title,
+          visible: userColumnsVisibleConfig.some(
+            (userColDataIndex: string) => userColDataIndex === item.dataIndex
+          )
+        }
+      })
+    } else {
+      newColumnsVisible = getDefaultColumns().map((item) => ({
+        dataIndex: item.dataIndex,
+        title: item.title,
+        visible: true
+      }))
+    }
+
+    setVisibleColumns(newColumnsVisible)
+  }, [columnsVisibleConfigKey])
 
   return (
     <div>
@@ -111,10 +142,13 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               setDataSource
             })}
 
-          <ColumnVisibleController
-            setVisibleColumns={setVisibleColumns}
-            visibleColumns={visibleColumns}
-          />
+          {props.withColumnsVisibleController && (
+            <ColumnVisibleController
+              tableName={tableNamePrefix + props.name}
+              setVisibleColumns={setVisibleColumns}
+              visibleColumns={visibleColumns}
+            />
+          )}
           {props.printButton === true ? (
             <div>
               <ReactToPrint
