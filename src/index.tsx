@@ -1,8 +1,8 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import 'antd/dist/antd.css'
-import { Button, Input, Table, Space } from 'antd'
+import { Button, Input, Space, Table } from 'antd'
 import ReactToPrint from 'react-to-print'
-import { TableProps, ColumnProps } from 'antd/es/table'
+import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
@@ -53,8 +53,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
   const [searchValue, setSearchValue] = useState<string>('')
   const componentRef = useRef(null)
-
-  const reactToPrintContent = React.useCallback(() => {
+  const reactToPrintContent = useCallback(() => {
     return componentRef.current
   }, [componentRef.current])
 
@@ -165,12 +164,12 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             onChange={(e) => {
               const currentSearchValue = e.target.value
               setSearchValue(currentSearchValue)
-
               const filteredData =
                 props.newSources &&
                 props.newSources.filter((entry) => {
-                  console.log(entry)
-                  return entry.name.includes(currentSearchValue)
+                  let lowerName = entry.name.toLocaleLowerCase()
+                  let valueSearch = currentSearchValue.toLocaleLowerCase()
+                  return lowerName.includes(valueSearch)
                 })
               setDataSource(filteredData)
             }}
