@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import 'antd/dist/antd.css'
 import { Button, Input, Space, Table } from 'antd'
 import ReactToPrint from 'react-to-print'
@@ -6,6 +6,7 @@ import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
+import { ColumnTitle } from 'antd/es/table/interface'
 
 export interface ComponentExposeState {
   record?: any
@@ -17,7 +18,9 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
+  withColumnsVisibleController?: boolean
   searchBy?: string
+  name: string
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
@@ -38,21 +41,25 @@ export interface newColumnsInterface<T = any> extends ColumnProps<T> {
 
 export interface visibleColumnsInterface {
   visible: boolean
+  title: ColumnTitle<any>
   dataIndex: string
 }
 
-export interface createButtonPropsInterface extends ButtonProps {
-}
+export interface createButtonPropsInterface extends ButtonProps {}
+
+const tableNamePrefix = '__eTable__'
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
   const [searchValue, setSearchValue] = useState<string>('')
   const componentRef = useRef(null)
-  const reactToPrintContent = React.useCallback(() => {
+  const reactToPrintContent = useCallback(() => {
     return componentRef.current
   }, [componentRef.current])
 
-  const getDefaultColumns: () => Array<newColumnsInterface> = useCallback(() => {
+  const getDefaultColumns: () => Array<
+    newColumnsInterface
+  > = useCallback(() => {
     return [
       ...(props.newColumns || []),
       {
@@ -79,16 +86,44 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     ]
   }, [setDataSource])
 
-  const [visibleColumns, setVisibleColumns] = useState(() =>
-    getDefaultColumns().map((item) => ({
-      dataIndex: item.dataIndex,
-      visible: true
-    }))
-  )
+  const [visibleColumns, setVisibleColumns] = useState<
+    visibleColumnsInterface[]
+  >([])
 
   const reactToPrintTrigger = React.useCallback(() => {
     return <Button>Print</Button>
   }, [])
+  const columnsVisibleConfigKey = useMemo(
+    () => tableNamePrefix + props.name,
+    []
+  )
+  useEffect(() => {
+    let userColumnsVisibleConfig: any = localStorage.getItem(
+      columnsVisibleConfigKey
+    )
+    let newColumnsVisible: visibleColumnsInterface[] = []
+    if (userColumnsVisibleConfig) {
+      userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
+
+      newColumnsVisible = getDefaultColumns().map((item) => {
+        return {
+          dataIndex: item.dataIndex,
+          title: item.title,
+          visible: userColumnsVisibleConfig.some(
+            (userColDataIndex: string) => userColDataIndex === item.dataIndex
+          )
+        }
+      })
+    } else {
+      newColumnsVisible = getDefaultColumns().map((item) => ({
+        dataIndex: item.dataIndex,
+        title: item.title,
+        visible: true
+      }))
+    }
+
+    setVisibleColumns(newColumnsVisible)
+  }, [columnsVisibleConfigKey])
 
   return (
     <div>
@@ -102,15 +137,17 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       >
         <Space>
           {props.renderCreateButton &&
-          props.renderCreateButton({
-            setDataSource
-          })}
+            props.renderCreateButton({
+              setDataSource
+            })}
 
-          <ColumnVisibleController
-            setVisibleColumns={setVisibleColumns}
-            visibleColumns={visibleColumns}
-            getDefaultColumns={getDefaultColumns}
-          />
+          {props.withColumnsVisibleController && (
+            <ColumnVisibleController
+              tableName={tableNamePrefix + props.name}
+              setVisibleColumns={setVisibleColumns}
+              visibleColumns={visibleColumns}
+            />
+          )}
           {props.printButton === true ? (
             <div>
               <ReactToPrint
@@ -130,7 +167,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               const filteredData =
                 props.newSources &&
                 props.newSources.filter((entry) => {
-                  const lowerName = entry.name.toLocaleLowerCase()
+                  let lowerName = entry.name.toLocaleLowerCase()
                   let valueSearch = currentSearchValue.toLocaleLowerCase()
                   return lowerName.includes(valueSearch)
                 })
