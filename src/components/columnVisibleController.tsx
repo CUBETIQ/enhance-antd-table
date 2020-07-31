@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Dropdown, Menu, Checkbox } from 'antd'
 import { visibleColumnsInterface } from '..'
-//@ts-ignore
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface ColumnVisibleControllerProps {
-  setVisibleColumns: React.Dispatch<
-    React.SetStateAction<visibleColumnsInterface[] | undefined>
-  >
+  setVisibleColumns: React.Dispatch<React.SetStateAction<visibleColumnsInterface[] | undefined>>
   visibleColumns: visibleColumnsInterface[]
   tableName: string
 }
