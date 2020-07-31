@@ -1,6 +1,6 @@
 {
   "name": "enhance-antd-table",
-  "version": "1.0.10.a",
+  "version": "1.0.10.b",
   "description": "enhance-antd-table antd-table @antd",
   "author": "LyhourChhen",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "yarn gen && microbundle-crl --no-compress --format modern,cjs",
+    "build": "pdfmakefg assets/ node_modules/pdfmake/build/vfs_fonts.js && microbundle-crl --no-compress --format modern,cjs",
     "start": "yarn gen && microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "yarn gen && run-s build",
     "test": "run-s test:unit test:lint test:build",
