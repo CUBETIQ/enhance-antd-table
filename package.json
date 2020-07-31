@@ -12,9 +12,9 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "prepare": "run-s build",
+    "build": "yarn gen && microbundle-crl --no-compress --format modern,cjs",
+    "start": "yarn gen && microbundle-crl watch --no-compress --format modern,cjs",
+    "prepare": "yarn gen && run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "install-pk": "yarn install",
@@ -24,7 +24,8 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
     "docs-server": "styleguidist server",
-    "docs-build": "styleguidist build"
+    "docs-build": "styleguidist build",
+    "gen": "pdfmakefg assets/ node_modules/pdfmake/build/vfs_fonts.js"
   },
   "peerDependencies": {
     "antd": "3.26.18",
@@ -36,6 +37,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^12.12.38",
+    "@types/pdfmake": "^0.1.14",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.7",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
@@ -55,6 +57,7 @@
     "gh-pages": "^2.2.0",
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
+    "pdfmake-font-generator": "^1.0.1",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -70,6 +73,8 @@
     "@types/styled-components": "^5.1.1",
     "@types/uuid": "^8.0.0",
     "antd": "^4.4.3",
+    "moment": "^2.27.0",
+    "pdfmake": "^0.1.67",
     "react-to-print": "^2.9.0",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
