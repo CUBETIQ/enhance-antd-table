@@ -4,17 +4,11 @@ import { visibleColumnsInterface } from '..'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface ColumnVisibleControllerProps {
-<<<<<<< HEAD
-  setVisibleColumns: React.Dispatch<React.SetStateAction<visibleColumnsInterface[] | undefined>>
-  visibleColumns: visibleColumnsInterface[]
-  tableName: string
-=======
     setVisibleColumns: React.Dispatch<
         React.SetStateAction<visibleColumnsInterface[] | undefined>
     >
     visibleColumns: visibleColumnsInterface[]
     tableName: string
->>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
 }
 
 const dropdownContainerPrefix = '__dropdown-visible__'

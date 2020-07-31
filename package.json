@@ -1,10 +1,6 @@
 {
   "name": "enhance-antd-table",
-<<<<<<< HEAD
-  "version": "1.0.9",
-=======
   "version": "1.0.8.a",
->>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
   "description": "enhance-antd-table antd-table @antd",
   "author": "LyhourChhen",
   "license": "MIT",
@@ -16,17 +12,10 @@
     "node": ">=10"
   },
   "scripts": {
-<<<<<<< HEAD
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "prepare": "run-s build",
-    "test-code": "jest",
-=======
     "build": "yarn gen && microbundle-crl --no-compress --format modern,cjs",
     "start": "yarn gen && microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "yarn gen && run-s build",
     "test": "run-s test:unit test:lint test:build",
->>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
     "test:build": "run-s build",
     "install-pk": "yarn install",
     "test:lint": "eslint .",
