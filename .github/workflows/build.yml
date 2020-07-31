@@ -10,37 +10,35 @@ jobs:
     strategy:
       matrix:
         node: ['10']
-    name: Node ${{ matrix.node }} sample
+    name: Node ${{ matrix.node }} 
+    
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: npm publish
+       - uses: actions/checkout@v2
+       - uses: actions/setup-node@v1
+         with:
+           node-version: '10.x'
+           registry-url: 'https://registry.npmjs.org'
+       - run: npm install
+       - run: npm publish
+         env:
+           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
+       - uses: actions/setup-node@v1
+         with:
+           registry-url: 'https://npm.pkg.github.com'
+       - run: npm publish
+         env:
+           NODE_AUTH_TOKEN: ${{ secrets.GH }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-      - uses: actions/setup-node@v1
+          GITHUB_TOKEN: ${{ secrets.GH }} # This token is provided by Actions, you do not need to create your own token
         with:
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH }}
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: '10.x'
-#           registry-url: 'registry.npmjs.org'
-#       - run: yarn install
-#       - run: yarn publish
-#         env:
-#           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     registry-url: 'https://npm.pkg.github.com'
-      # - run: yarn install
-      # - run: yarn publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.GH }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
