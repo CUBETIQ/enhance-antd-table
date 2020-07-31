@@ -20,6 +20,39 @@ const formProps = {
   tailLayout
 }
 
+const dummy = [
+  {
+    name: 'លីហួរ',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer']
+  },
+  {
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser']
+  },
+  {
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher']
+  },
+  {
+    name: 'LyhourChhen',
+    age: 322,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher']
+  }
+]
+
+let data: any[] = []
+
+for (let i = 0; i < 1; i++) {
+  data.push(...dummy)
+}
+
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
@@ -62,36 +95,6 @@ const App = () => {
     }
   ]
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer']
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser']
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher']
-    },
-    {
-      key: '4',
-      name: 'LyhourChhen',
-      age: 322,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher']
-    }
-  ]
   return (
     <div>
       <Modal
