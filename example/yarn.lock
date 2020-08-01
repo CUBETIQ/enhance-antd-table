@@ -2,6 +2,8 @@
 # yarn lockfile v1
 
 
+<<<<<<< HEAD
+=======
 "@ant-design/colors@^3.1.0":
   version "3.2.2"
   resolved "https://npm-registry.cubetiqs.com/@ant-design%2fcolors/-/colors-3.2.2.tgz#5ad43d619e911f3488ebac303d606e66a8423903"
@@ -9,16 +11,20 @@
   dependencies:
     tinycolor2 "^1.4.1"
 
+>>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
 "@ant-design/css-animation@^1.7.2":
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/@ant-design/css-animation/-/css-animation-1.7.3.tgz#60a1c970014e86b28f940510d69e503e428f1136"
   integrity sha512-LrX0OGZtW+W6iLnTAqnTaoIsRelYeuLZWsrmBJFUXDALQphPsN8cE5DCsmoSlL0QYb94BQxINiuS70Ar/8BNgA==
 
+<<<<<<< HEAD
+=======
 "@ant-design/icons-svg@^4.0.0":
   version "4.1.0"
   resolved "https://npm-registry.cubetiqs.com/@ant-design%2ficons-svg/-/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
 
+>>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
 "@ant-design/icons@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-4.2.1.tgz#6f3ea5d98ab782072e4e9cbb70f25e4403ae1a6b"
@@ -5607,11 +5613,14 @@ inquirer@^7.0.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
+<<<<<<< HEAD
+=======
 insert-css@^2.0.0:
   version "2.0.0"
   resolved "https://npm-registry.cubetiqs.com/insert-css/-/insert-css-2.0.0.tgz#eb5d1097b7542f4c79ea3060d3aee07d053880f4"
   integrity sha1-610Ql7dUL0x56jBg067gfQU4gPQ=
 
+>>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
 internal-ip@^4.3.0:
   version "4.3.0"
   resolved "https://npm-registry.cubetiqs.com/internal-ip/-/internal-ip-4.3.0.tgz#845452baad9d2ca3b69c635a137acb9a0dad0907"
@@ -9252,7 +9261,11 @@ react-to-print@^2.9.0:
 
 react@^16.0.0:
   version "16.13.1"
+<<<<<<< HEAD
+  resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
+=======
   resolved "https://npm-registry.cubetiqs.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
+>>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
   dependencies:
     loose-envify "^1.1.0"
@@ -10619,11 +10632,14 @@ timsort@^0.3.0:
   resolved "https://npm-registry.cubetiqs.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+<<<<<<< HEAD
+=======
 tinycolor2@^1.4.1:
   version "1.4.1"
   resolved "https://npm-registry.cubetiqs.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
   integrity sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g=
 
+>>>>>>> ce4772279bd0887b186d1e18b45ab9ed4dfb5b01
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://npm-registry.cubetiqs.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
