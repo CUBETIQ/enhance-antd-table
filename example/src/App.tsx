@@ -49,7 +49,7 @@ const dummy = [
 
 let data: any[] = []
 
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 0; i++) {
   data.push(...dummy)
 }
 
@@ -149,7 +149,38 @@ const App = () => {
             setDataSourceRef.current = setDataSource
             return <Button onClick={() => setModal(true)}>Create</Button>
           }}
-          printButton={true}
+          printProps={{
+            generateColumnHeaders: (columns, avaiableFonts) => {
+              return columns.map((item) => ({
+                text: item.title,
+                fontSize: 20,
+                font: avaiableFonts.kh
+              }))
+            },
+            generateColumnWidths: (columns) => {
+              return columns.map((item) =>
+                item.dataIndex === 'name' ? 50 : '*'
+              )
+            },
+            generateTableBody: (visibleData: any, avaiableFonts) => {
+              const newRecords = visibleData.map(
+                (record: { [index: string]: any }) => {
+                  let newRow: any[] = []
+                  for (let key in record) {
+                    newRow.push({
+                      text: record[key],
+                      fontSize: 20,
+                      font: avaiableFonts.kh
+                    })
+                  }
+
+                  return newRow
+                }
+              )
+
+              return newRecords
+            }
+          }}
           actionDelete={({ record, index }) => ({
             onClick: () => console.log('delete ', record, 'at ' + index)
           })}

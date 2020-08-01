@@ -6,7 +6,10 @@ import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
-import ButtonPrint, { actionDataIndex } from './components/buttonPrint'
+import ButtonPrint, {
+  actionDataIndex,
+  PrintProps
+} from './components/buttonPrint'
 
 export interface ComponentExposeState {
   record?: any
@@ -21,7 +24,7 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   withColumnsVisibleController?: boolean
   searchBy?: string
   name: string
-  printProps?: any
+  printProps?: PrintProps
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
