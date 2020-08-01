@@ -2,10 +2,11 @@ import React from 'react'
 import { Button } from 'antd'
 import moment from 'moment'
 import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
+//@ts-ignore
+import pdfFonts from './vfs_fonts'
 import { visibleColumnsInterface } from '..'
 import { TDocumentDefinitions, TableCell } from 'pdfmake/interfaces'
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+pdfMake.vfs = pdfFonts
 
 export const actionDataIndex = '__action'
 const fontPrint = 'kh-battambang'
