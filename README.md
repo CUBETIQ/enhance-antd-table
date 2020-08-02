@@ -1,4 +1,4 @@
-# Enhance-Antd-Table
+# Enhance-Antd-Table 
 
 > Stil @antd-table but more and ++
 
@@ -20,10 +20,12 @@ yarn add enhance-antd-table
 
 ## Usage
 
+**[Full tutorial](https://github.com/LyhourChhen/enhance-antd-table/blob/master/example/src/App.tsx)**
+
 ```tsx
 import React, { Component } from 'react'
 
-import EnhanceAntdTable from 'antd-table-search'
+import EnhanceAntdTable from 'enhance-antd-table'
 import 'antd-table-search/dist/index.css'
 
 const Example = () => {

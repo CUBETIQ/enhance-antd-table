@@ -12,9 +12,9 @@
 //    "node": true
 //  },
 //  "parserOptions": {
-//    "ecmaVersion": 2020,
+//    "ecmaVersion": 7,
+//    "sourceType": "module",
 //    "ecmaFeatures": {
-//      "legacyDecorators": true,
 //      "jsx": true
 //    }
 //  },
@@ -24,6 +24,7 @@
 //    }
 //  },
 //  "rules": {
+//    "no-unused-vars": 0,
 //    "space-before-function-paren": 0,
 //    "react/prop-types": 0,
 //    "react/jsx-handler-names": 0,
