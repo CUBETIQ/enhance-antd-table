@@ -1,18 +1,22 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Modal } from 'antd'
 import moment from 'moment'
 import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
+//@ts-ignore
+import pdfFonts from './vfs_fonts'
 import { visibleColumnsInterface } from '..'
 import { TDocumentDefinitions, TableCell } from 'pdfmake/interfaces'
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+pdfMake.vfs = pdfFonts
 
 export const actionDataIndex = '__action'
 const fontPrint = 'kh-battambang'
 
 pdfMake.fonts = {
   [fontPrint]: {
-    normal: 'kh-battambang.ttf'
+    normal: 'kh-battambang.ttf',
+    bold: 'kh-battambang.ttf',
+    italics: 'kh-battambang.ttf',
+    bolditalics: 'kh-battambang.ttf'
   },
   Roboto: {
     normal: 'Roboto-Regular.ttf',
@@ -22,13 +26,35 @@ pdfMake.fonts = {
   }
 }
 
-export interface ButtonPrintProp {
+interface availableFontsProp {
+  [index: string]: string
+}
+
+const availableFonts: availableFontsProp = {
+  kh: fontPrint,
+  default: 'Roboto'
+}
+
+type ColumnWidthTypes = '*' | 'auto' | Number
+
+export interface PrintProps {
+  generateColumnWidths?: (
+    columns: visibleColumnsInterface[]
+  ) => ColumnWidthTypes[]
+  generateColumnHeaders?: (
+    columns: visibleColumnsInterface[],
+    availableFonts: availableFontsProp
+  ) => TableCell[]
+  generateTableBody?: (
+    data: any[],
+    availableFonts: availableFontsProp
+  ) => TableCell[]
+  docDefinition?: any
+}
+
+export interface ButtonPrintProp extends PrintProps {
   data?: any
   visibleColumns: visibleColumnsInterface[]
-  generateColumnWidths?: (columns: visibleColumnsInterface[]) => string[]
-  generateColumnHeaders?: (columns?: visibleColumnsInterface[]) => TableCell[]
-  generateTableBody?: (data?: any[]) => TableCell[]
-  docDefinition?: any
   [index: string]: any
 }
 
@@ -42,7 +68,7 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
     generateTableBody
   } = props
 
-  const handlePrint = (e: any) => {
+  const handlePrint = () => {
     const xMargin = 25
     const yMargin = 25
 
@@ -65,13 +91,13 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
     })
 
     let recordsToPrint = generateTableBody
-      ? generateTableBody(visibleData)
+      ? generateTableBody(visibleData, availableFonts)
       : visibleData.map((record: { [index: string]: any }) => {
           let newRow: TableCell[] = []
           for (let key in record) {
             newRow.push({
               text: record[key],
-              fontsize: 14,
+              fontSize: 12,
               font: fontPrint
             })
           }
@@ -100,18 +126,16 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
           table: {
             headerRows: 1,
             widths: generateColumnWidths
-              ? generateColumnWidths(defaultVisibleColumns!)
+              ? generateColumnWidths(defaultVisibleColumns)
               : defaultVisibleColumns.map(() => '*'),
             body: [
               generateColumnHeaders
-                ? generateColumnHeaders(defaultVisibleColumns)
-                : defaultVisibleColumns
-                    .filter((item) => item.visible)
-                    .map((item) => ({
-                      text: item.title,
-                      fontSize: 14,
-                      font: fontPrint
-                    })),
+                ? generateColumnHeaders(defaultVisibleColumns, availableFonts)
+                : defaultVisibleColumns.map((item) => ({
+                    text: item.title,
+                    fontSize: 14,
+                    font: fontPrint
+                  })),
               ...recordsToPrint
             ]
           }
@@ -123,7 +147,27 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
     pdfMake.createPdf(docDefinition).print()
   }
 
-  return <Button onClick={handlePrint}>Print</Button>
+  return (
+    <Button
+      onClick={() => {
+        const allowPrint =
+          visibleColumns.filter((item) => {
+            return item.dataIndex !== actionDataIndex && item.visible
+          }).length > 0
+
+        if (allowPrint) {
+          handlePrint()
+        } else {
+          Modal.info({
+            content:
+              'Please show at least one column. Action column does not count!'
+          })
+        }
+      }}
+    >
+      Print
+    </Button>
+  )
 }
 
 export default buttonPrint

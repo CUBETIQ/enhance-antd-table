@@ -6,7 +6,10 @@ import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
-import ButtonPrint, { actionDataIndex } from './components/buttonPrint'
+import ButtonPrint, {
+  actionDataIndex,
+  PrintProps
+} from './components/buttonPrint'
 
 export interface ComponentExposeState {
   record?: any
@@ -14,14 +17,16 @@ export interface ComponentExposeState {
   setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
 }
 
-interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
+interface enhanceTableInterface<IRowData = any> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
   withColumnsVisibleController?: boolean
   searchBy?: string
   name: string
-  printProps?: any
+  printProps?: PrintProps
+  restProps?: TableProps<IRowData>
+  actionColumnProps?: any
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
@@ -62,8 +67,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       ...(props.newColumns || []),
       {
         title: 'Action',
+        ...props.actionColumnProps,
         dataIndex: actionDataIndex,
-        key: 'name',
+        key: actionDataIndex,
+
         render: (record, _, index) => {
           const stateToExpose = {
             record,
@@ -174,7 +181,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       </div>
       <div ref={componentRef}>
         <Table
-          bordered={props.bordered}
+          {...props.restProps}
           dataSource={dataSource}
           columns={getDefaultColumns().filter((item) =>
             visibleColumns.some(
@@ -189,7 +196,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 }
 
 EnhanceAntdTable.defaultProps = {
-  bordered: true,
   searchBy: 'name'
 }
 
