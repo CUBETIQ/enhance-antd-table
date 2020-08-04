@@ -49,54 +49,64 @@ const dummy = [
 
 let data: any[] = []
 
-for (let i = 0; i < 0; i++) {
+for (let i = 0; i < 4; i++) {
   data.push(...dummy)
 }
+
+const columns: Array<newColumnsInterface> = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age'
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address'
+  },
+  {
+    title: 'Tags',
+    key: 'tags',
+    dataIndex: 'tags',
+
+    render: (tags: any) => (
+      <div>
+        {tags.map((tag: any) => {
+          let color = tag.length > 5 ? 'geekblue' : 'green'
+          if (tag === 'loser') {
+            color = 'volcano'
+          }
+          return (
+            <Tag color={color} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          )
+        })}
+      </div>
+    )
+  }
+]
 
 const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const setDataSourceRef = useRef<any>()
-  const columns: Array<newColumnsInterface> = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name'
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age'
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address'
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (tags: any) => (
-        <div>
-          {tags.map((tag: any) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            )
-          })}
-        </div>
-      )
-    }
-  ]
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        width: '100vw',
+        height: '100vh',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
       <Modal
         okButtonProps={{ type: 'primary' }}
         okText={'Yes'}
@@ -136,10 +146,7 @@ const App = () => {
       </Modal>
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh'
+          width: 1250
         }}
       >
         <EnhanceAntdTable
@@ -200,9 +207,13 @@ const App = () => {
               </Menu.Item>
             </Menu>
           )}
-          bordered={true}
           newColumns={columns}
           newSources={data}
+          restProps={{
+            bordered: true,
+            scroll: { x: 1550, y: 400 },
+            size: 'small'
+          }}
         />
       </div>
     </div>
