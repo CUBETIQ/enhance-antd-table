@@ -17,7 +17,7 @@ export interface ComponentExposeState {
   setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
 }
 
-interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
+interface enhanceTableInterface<IRowData = any> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
@@ -25,6 +25,8 @@ interface enhanceTableInterface<IRowData = any> extends TableProps<IRowData> {
   searchBy?: string
   name: string
   printProps?: PrintProps
+  restProps?: TableProps<IRowData>
+  actionColumnProps?: any
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
@@ -65,8 +67,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       ...(props.newColumns || []),
       {
         title: 'Action',
+        ...props.actionColumnProps,
         dataIndex: actionDataIndex,
-        key: 'name',
+        key: actionDataIndex,
+
         render: (record, _, index) => {
           const stateToExpose = {
             record,
@@ -177,7 +181,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       </div>
       <div ref={componentRef}>
         <Table
-          bordered={props.bordered}
+          {...props.restProps}
           dataSource={dataSource}
           columns={getDefaultColumns().filter((item) =>
             visibleColumns.some(
@@ -192,7 +196,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 }
 
 EnhanceAntdTable.defaultProps = {
-  bordered: true,
   searchBy: 'name'
 }
 
