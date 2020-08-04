@@ -2,6 +2,6 @@
 
 echo "library init to build"
 npx yarn install && npx yarn build
-cd example && npx yarn link "enhance-antd-table-example"
+cd preview
 npx yarn install && npx yarn build
-
+echo "build finished"
