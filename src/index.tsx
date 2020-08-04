@@ -127,6 +127,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     setVisibleColumns(newColumnsVisible)
   }, [columnsVisibleConfigKey])
 
+  useEffect(() => {
+    setDataSource(props.newSources)
+  }, [props.newSources])
+
   return (
     <div>
       <div
