@@ -4286,7 +4286,7 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-"enhance-antd-table@link ../":
+enhance-antd-table@^1.0.1-0.c:
   version "1.0.1-0.c"
   resolved "https://registry.yarnpkg.com/enhance-antd-table/-/enhance-antd-table-1.0.1-0.c.tgz#d9ca28fb88975120a9232c118c3ed1cf3ed2a0c3"
   integrity sha512-1foQjaBtk3hmTNpTjUv16H9yq9aN+9esR7pxTJ6ZW1S/i9lng6IkhIaRnkZxTlhb7QYDqTxl0TVj1uyDsyzM/Q==
