@@ -21,12 +21,16 @@ const ActionMenu: React.FC<ActionMenuInterface> = (props) => {
   const menu = () => (
     <div>
       <Menu>
-        <Menu.Item key={uuid()} icon={<ExpandOutlined />} {...props.detail}>
-          Detail
-        </Menu.Item>
-        <Menu.Item key={uuid()} icon={<DeleteOutlined />} {...props.delete}>
-          Delete
-        </Menu.Item>
+        {props.detail && (
+          <Menu.Item key={uuid()} icon={<ExpandOutlined />} {...props.detail}>
+            Detail
+          </Menu.Item>
+        )}
+        {props.delete && (
+          <Menu.Item key={uuid()} icon={<DeleteOutlined />} {...props.delete}>
+            Delete
+          </Menu.Item>
+        )}
       </Menu>
     </div>
   )
