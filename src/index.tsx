@@ -71,7 +71,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         dataIndex: actionDataIndex,
         key: actionDataIndex,
 
-        render: (record, _, index) => {
+        render: (_, record, index) => {
           const stateToExpose = {
             record,
             index,
@@ -126,6 +126,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 
     setVisibleColumns(newColumnsVisible)
   }, [columnsVisibleConfigKey])
+
+  useEffect(() => {
+    setDataSource(props.newSources)
+  }, [props.newSources])
 
   return (
     <div>
