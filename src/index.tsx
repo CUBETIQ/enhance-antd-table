@@ -71,7 +71,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         dataIndex: actionDataIndex,
         key: actionDataIndex,
 
-        render: (record, _, index) => {
+        render: (_, record, index) => {
           const stateToExpose = {
             record,
             index,
