@@ -1,6 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 // @ts-ignore
-import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
+import EnhanceAntdTable, {
+  newColumnsInterface,
+  TableSkeleton
+} from 'enhance-antd-table'
 //@ts-ignore
 import { Tag, Modal, Menu, Button } from 'antd'
 //@ts-ignore
@@ -8,6 +11,7 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
+import 'enhance-antd-table/dist/index.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -78,13 +82,13 @@ const columns: Array<newColumnsInterface> = [
 
     render: (tags: any) => (
       <div>
-        {tags.map((tag: any) => {
+        {tags.map((tag: any, index: number) => {
           let color = tag.length > 5 ? 'geekblue' : 'green'
           if (tag === 'loser') {
             color = 'volcano'
           }
           return (
-            <Tag color={color} key={tag}>
+            <Tag color={color} key={index}>
               {tag.toUpperCase()}
             </Tag>
           )
@@ -98,6 +102,13 @@ const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const setDataSourceRef = useRef<any>()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
 
   return (
     <div
@@ -148,86 +159,90 @@ const App = () => {
       </Modal>
       <div
         style={{
-          width: 1250
+          width: 1250,
+          height: '100vh'
         }}
       >
-        <EnhanceAntdTable
-          name={'exampleTable'}
-          withColumnsVisibleController={true}
-          renderCreateButton={({ setDataSource }: any) => {
-            setDataSourceRef.current = setDataSource
-            return <Button onClick={() => setModal(true)}>Create</Button>
-          }}
-          printProps={{
-            generateColumnHeaders: (columns, avaiableFonts) => {
-              return columns.map((item) => ({
-                text: item.title,
-                fontSize: 20,
-                font: avaiableFonts.kh
-              }))
-            },
-            generateColumnWidths: (columns) => {
-              return columns.map((item) =>
-                item.dataIndex === 'name' ? 50 : '*'
-              )
-            },
-            generateTableBody: (visibleData: any, avaiableFonts) => {
-              const newRecords = visibleData.map(
-                (record: { [index: string]: any }) => {
-                  let newRow: any[] = []
-                  for (let key in record) {
-                    newRow.push({
-                      text: record[key],
-                      fontSize: 20,
-                      font: avaiableFonts.kh
-                    })
+        <TableSkeleton loading={loading}>
+          <EnhanceAntdTable
+            name={'exampleTable'}
+            withColumnsVisibleController={true}
+            renderCreateButton={({ setDataSource }: any) => {
+              setDataSourceRef.current = setDataSource
+              return <Button onClick={() => setModal(true)}>Create</Button>
+            }}
+            printProps={{
+              generateColumnHeaders: (columns, avaiableFonts) => {
+                return columns.map((item) => ({
+                  text: item.title,
+                  fontSize: 20,
+                  font: avaiableFonts.kh
+                }))
+              },
+              generateColumnWidths: (columns) => {
+                return columns.map((item) =>
+                  item.dataIndex === 'name' ? 50 : '*'
+                )
+              },
+              generateTableBody: (visibleData: any, avaiableFonts) => {
+                const newRecords = visibleData.map(
+                  (record: { [index: string]: any }) => {
+                    let newRow: any[] = []
+                    for (let key in record) {
+                      newRow.push({
+                        text: record[key],
+                        fontSize: 20,
+                        font: avaiableFonts.kh
+                      })
+                    }
+
+                    return newRow
                   }
+                )
 
-                  return newRow
-                }
-              )
-
-              return newRecords
-            }
-          }}
-          actionDelete={({ record, index }) => ({
-            onClick: () => console.log('delete ', record, 'at ' + index)
-          })}
-          actionDetails={({ record, index }) => ({
-            onClick: () => console.log(record, 'at ' + index)
-          })}
-          // renderOwnActionMenu={({ record, index }) => (
-          //   <Menu>
-          //     <Menu.Item
-          //       key={uuid()}
-          //       icon={<DeleteOutlined />}
-          //       onClick={() => {
-          //         console.log(record, index, 'hello')
-          //       }}
-          //     >
-          //       Delete
-          //     </Menu.Item>
-          //   </Menu>
-          // )}
-          renderOwnSearchInput={({ setDataSource }) => (
-            <Button
-              onClick={() => {
-                setDataSource((old) => {
-                  return old?.length == 0 ? data : []
-                })
-              }}
-            >
-              Toggle
-            </Button>
-          )}
-          newColumns={columns}
-          newSources={data}
-          restProps={{
-            bordered: true,
-            scroll: { x: 1550, y: 400 },
-            size: 'small'
-          }}
-        />
+                return newRecords
+              }
+            }}
+            actionDelete={({ record, index }) => ({
+              onClick: () => console.log('delete ', record, 'at ' + index)
+            })}
+            actionDetails={({ record, index }) => ({
+              onClick: () => console.log(record, 'at ' + index)
+            })}
+            // renderOwnActionMenu={({ record, index }) => (
+            //   <Menu>
+            //     <Menu.Item
+            //       key={uuid()}
+            //       icon={<DeleteOutlined />}
+            //       onClick={() => {
+            //         console.log(record, index, 'hello')
+            //       }}
+            //     >
+            //       Delete
+            //     </Menu.Item>
+            //   </Menu>
+            // )}
+            renderOwnSearchInput={({ setDataSource }) => (
+              <Button
+                onClick={() => {
+                  setDataSource((old) => {
+                    return old?.length == 0 ? data : []
+                  })
+                }}
+              >
+                Toggle
+              </Button>
+            )}
+            newColumns={columns}
+            newSources={data}
+            restProps={{
+              bordered: true,
+              scroll: { x: 1550, y: 400 },
+              size: 'small',
+              rowKey: 'id'
+            }}
+          />
+        </TableSkeleton>
       </div>
     </div>
   )

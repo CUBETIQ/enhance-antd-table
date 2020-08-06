@@ -10,6 +10,7 @@ import ButtonPrint, {
   actionDataIndex,
   PrintProps
 } from './components/buttonPrint'
+import TableSkeleton from './components/tableSkeleton'
 
 export interface ComponentExposeState {
   record?: any
@@ -228,5 +229,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 EnhanceAntdTable.defaultProps = {
   searchBy: 'name'
 }
+
+export { TableSkeleton }
 
 export default EnhanceAntdTable
