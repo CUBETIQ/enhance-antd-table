@@ -17,6 +17,10 @@ export interface ComponentExposeState {
   setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
 }
 
+interface renderOwnSearchInputArgs {
+  setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
+}
+
 interface enhanceTableInterface<IRowData = any> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
@@ -38,6 +42,9 @@ interface enhanceTableInterface<IRowData = any> {
   ) => React.ReactNode
   renderCreateButton?: (
     ComponentExposeState: ComponentExposeState
+  ) => React.ReactNode
+  renderOwnSearchInput?: (
+    renderOwnSearchInputArgs: renderOwnSearchInputArgs
   ) => React.ReactNode
 }
 
@@ -63,32 +70,45 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const getDefaultColumns: () => Array<
     newColumnsInterface
   > = useCallback(() => {
-    return [
-      ...(props.newColumns || []),
-      {
-        title: 'Action',
-        ...props.actionColumnProps,
-        dataIndex: actionDataIndex,
-        key: actionDataIndex,
+    const getAdditionalColumns = () => {
+      let additionalColumns: any[] = []
 
-        render: (_, record, index) => {
-          const stateToExpose = {
-            record,
-            index,
-            setDataSource
+      if (
+        props.actionDelete ||
+        props.actionDetails ||
+        props.renderOwnActionMenu
+      ) {
+        additionalColumns.push({
+          title: 'Action',
+          ...props.actionColumnProps,
+          dataIndex: actionDataIndex,
+          key: actionDataIndex,
+
+          render: (_: any, record: any, index: number) => {
+            const stateToExpose = {
+              record,
+              index,
+              setDataSource
+            }
+
+            return props.renderOwnActionMenu ? (
+              props.renderOwnActionMenu(stateToExpose)
+            ) : (
+              <ActionMenu
+                delete={props.actionDelete && props.actionDelete(stateToExpose)}
+                detail={
+                  props.actionDetails && props.actionDetails(stateToExpose)
+                }
+              />
+            )
           }
-
-          return props.renderOwnActionMenu ? (
-            props.renderOwnActionMenu(stateToExpose)
-          ) : (
-            <ActionMenu
-              delete={props.actionDelete && props.actionDelete(stateToExpose)}
-              detail={props.actionDetails && props.actionDetails(stateToExpose)}
-            />
-          )
-        }
+        })
       }
-    ]
+
+      return additionalColumns
+    }
+
+    return [...(props.newColumns || []), ...getAdditionalColumns()]
   }, [setDataSource])
 
   const [visibleColumns, setVisibleColumns] = useState<
@@ -165,22 +185,28 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           ) : null}
         </Space>
         <div>
-          <Input
-            placeholder='Search'
-            value={searchValue}
-            onChange={(e) => {
-              const currentSearchValue = e.target.value
-              setSearchValue(currentSearchValue)
-              const filteredData =
-                props.newSources &&
-                props.newSources.filter((entry) => {
-                  let lowerName = entry.name.toLocaleLowerCase()
-                  let valueSearch = currentSearchValue.toLocaleLowerCase()
-                  return lowerName.includes(valueSearch)
-                })
-              setDataSource(filteredData)
-            }}
-          />
+          {props.renderOwnSearchInput ? (
+            props.renderOwnSearchInput({
+              setDataSource
+            })
+          ) : (
+            <Input
+              placeholder='Search'
+              value={searchValue}
+              onChange={(e) => {
+                const currentSearchValue = e.target.value
+                setSearchValue(currentSearchValue)
+                const filteredData =
+                  props.newSources &&
+                  props.newSources.filter((entry) => {
+                    let lowerName = entry.name.toLocaleLowerCase()
+                    let valueSearch = currentSearchValue.toLocaleLowerCase()
+                    return lowerName.includes(valueSearch)
+                  })
+                setDataSource(filteredData)
+              }}
+            />
+          )}
         </div>
       </div>
       <div ref={componentRef}>
