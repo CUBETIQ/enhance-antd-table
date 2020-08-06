@@ -63,32 +63,40 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const getDefaultColumns: () => Array<
     newColumnsInterface
   > = useCallback(() => {
-    return [
-      ...(props.newColumns || []),
-      {
-        title: 'Action',
-        ...props.actionColumnProps,
-        dataIndex: actionDataIndex,
-        key: actionDataIndex,
+    const getAdditionalColumns = () => {
+      let additionalColumns: any[] = []
+      if (props.actionDelete || props.actionDetails) {
+        additionalColumns.push({
+          title: 'Action',
+          ...props.actionColumnProps,
+          dataIndex: actionDataIndex,
+          key: actionDataIndex,
 
-        render: (_, record, index) => {
-          const stateToExpose = {
-            record,
-            index,
-            setDataSource
+          render: (_, record, index) => {
+            const stateToExpose = {
+              record,
+              index,
+              setDataSource
+            }
+
+            return props.renderOwnActionMenu ? (
+              props.renderOwnActionMenu(stateToExpose)
+            ) : (
+              <ActionMenu
+                delete={props.actionDelete && props.actionDelete(stateToExpose)}
+                detail={
+                  props.actionDetails && props.actionDetails(stateToExpose)
+                }
+              />
+            )
           }
-
-          return props.renderOwnActionMenu ? (
-            props.renderOwnActionMenu(stateToExpose)
-          ) : (
-            <ActionMenu
-              delete={props.actionDelete && props.actionDelete(stateToExpose)}
-              detail={props.actionDetails && props.actionDetails(stateToExpose)}
-            />
-          )
-        }
+        })
       }
-    ]
+
+      return additionalColumns
+    }
+
+    return [...(props.newColumns || []), ...getAdditionalColumns()]
   }, [setDataSource])
 
   const [visibleColumns, setVisibleColumns] = useState<
