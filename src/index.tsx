@@ -65,14 +65,19 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   > = useCallback(() => {
     const getAdditionalColumns = () => {
       let additionalColumns: any[] = []
-      if (props.actionDelete || props.actionDetails) {
+
+      if (
+        props.actionDelete ||
+        props.actionDetails ||
+        props.renderOwnActionMenu
+      ) {
         additionalColumns.push({
           title: 'Action',
           ...props.actionColumnProps,
           dataIndex: actionDataIndex,
           key: actionDataIndex,
 
-          render: (_, record, index) => {
+          render: (_: any, record: any, index: number) => {
             const stateToExpose = {
               record,
               index,
