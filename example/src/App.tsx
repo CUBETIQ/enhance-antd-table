@@ -3,7 +3,9 @@ import React, { useState, useRef } from 'react'
 import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
 //@ts-ignore
 import { Tag, Modal, Menu, Button } from 'antd'
+//@ts-ignore
 import { v4 as uuid } from 'uuid'
+//@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
 
@@ -194,18 +196,29 @@ const App = () => {
           actionDetails={({ record, index }) => ({
             onClick: () => console.log(record, 'at ' + index)
           })}
-          renderOwnActionMenu={({ record, index }) => (
-            <Menu>
-              <Menu.Item
-                key={uuid()}
-                icon={<DeleteOutlined />}
-                onClick={() => {
-                  console.log(record, index, 'hello')
-                }}
-              >
-                Delete
-              </Menu.Item>
-            </Menu>
+          // renderOwnActionMenu={({ record, index }) => (
+          //   <Menu>
+          //     <Menu.Item
+          //       key={uuid()}
+          //       icon={<DeleteOutlined />}
+          //       onClick={() => {
+          //         console.log(record, index, 'hello')
+          //       }}
+          //     >
+          //       Delete
+          //     </Menu.Item>
+          //   </Menu>
+          // )}
+          renderOwnSearchInput={({ setDataSource }) => (
+            <Button
+              onClick={() => {
+                setDataSource((old) => {
+                  return old?.length == 0 ? data : []
+                })
+              }}
+            >
+              Toggle
+            </Button>
           )}
           newColumns={columns}
           newSources={data}
