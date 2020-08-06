@@ -209,6 +209,17 @@ const App = () => {
           //     </Menu.Item>
           //   </Menu>
           // )}
+          renderOwnSearchInput={({ setDataSource }) => (
+            <Button
+              onClick={() => {
+                setDataSource((old) => {
+                  return old?.length == 0 ? data : []
+                })
+              }}
+            >
+              Toggle
+            </Button>
+          )}
           newColumns={columns}
           newSources={data}
           restProps={{

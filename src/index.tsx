@@ -17,6 +17,10 @@ export interface ComponentExposeState {
   setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
 }
 
+interface renderOwnSearchInputArgs {
+  setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
+}
+
 interface enhanceTableInterface<IRowData = any> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
@@ -38,6 +42,9 @@ interface enhanceTableInterface<IRowData = any> {
   ) => React.ReactNode
   renderCreateButton?: (
     ComponentExposeState: ComponentExposeState
+  ) => React.ReactNode
+  renderOwnSearchInput?: (
+    renderOwnSearchInputArgs: renderOwnSearchInputArgs
   ) => React.ReactNode
 }
 
@@ -178,22 +185,28 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           ) : null}
         </Space>
         <div>
-          <Input
-            placeholder='Search'
-            value={searchValue}
-            onChange={(e) => {
-              const currentSearchValue = e.target.value
-              setSearchValue(currentSearchValue)
-              const filteredData =
-                props.newSources &&
-                props.newSources.filter((entry) => {
-                  let lowerName = entry.name.toLocaleLowerCase()
-                  let valueSearch = currentSearchValue.toLocaleLowerCase()
-                  return lowerName.includes(valueSearch)
-                })
-              setDataSource(filteredData)
-            }}
-          />
+          {props.renderOwnSearchInput ? (
+            props.renderOwnSearchInput({
+              setDataSource
+            })
+          ) : (
+            <Input
+              placeholder='Search'
+              value={searchValue}
+              onChange={(e) => {
+                const currentSearchValue = e.target.value
+                setSearchValue(currentSearchValue)
+                const filteredData =
+                  props.newSources &&
+                  props.newSources.filter((entry) => {
+                    let lowerName = entry.name.toLocaleLowerCase()
+                    let valueSearch = currentSearchValue.toLocaleLowerCase()
+                    return lowerName.includes(valueSearch)
+                  })
+                setDataSource(filteredData)
+              }}
+            />
+          )}
         </div>
       </div>
       <div ref={componentRef}>
