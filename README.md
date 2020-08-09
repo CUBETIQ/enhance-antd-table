@@ -128,5 +128,5 @@ const Example = () => {
 
 MIT © 2020 
 
-[LyhourChhen](https://github.com/LyhourChhen)
-[vuthPov](https://github.com/vuthpov)
+- [LyhourChhen](https://github.com/LyhourChhen)
+- [vuthPov](https://github.com/vuthpov)
