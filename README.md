@@ -126,4 +126,7 @@ const Example = () => {
 
 ## License
 
-MIT © 2020 [LyhourChhen](https://github.com/LyhourChhen)
+MIT © 2020 
+
+[LyhourChhen](https://github.com/LyhourChhen)
+[vuthPov](https://github.com/vuthpov)
