@@ -2,7 +2,17 @@
   "name": "enhance-antd-table",
   "version": "1.0.2-c",
   "description": "enhance-antd-table antd-table @antd",
-  "author": "LyhourChhen",
+  "contributors": [
+    {
+      "name": "LyhourChhen",
+      "email": "chhenlyhour@gmail.com",
+      "url": "https:github.com/lyhourchhen"
+    },
+    {
+      "name": "VuthPov",
+      "url": "https://github.com/vuthpov"
+    }
+  ],
   "license": "MIT",
   "repository": "LyhourChhen/enhance-antd-table",
   "main": "dist/index.js",
