@@ -102,6 +102,7 @@ const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const setDataSourceRef = useRef<any>()
+  //@ts-ignore
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -171,38 +172,38 @@ const App = () => {
             //   setDataSourceRef.current = setDataSource
             //   return <Button onClick={() => setModal(true)}>Create</Button>
             // }}
-            // printProps={{
-            //   generateColumnHeaders: (columns, avaiableFonts) => {
-            //     return columns.map((item) => ({
-            //       text: item.title,
-            //       fontSize: 20,
-            //       font: avaiableFonts.kh
-            //     }))
-            //   },
-            //   generateColumnWidths: (columns) => {
-            //     return columns.map((item) =>
-            //       item.dataIndex === 'name' ? 50 : '*'
-            //     )
-            //   },
-            //   generateTableBody: (visibleData: any, avaiableFonts) => {
-            //     const newRecords = visibleData.map(
-            //       (record: { [index: string]: any }) => {
-            //         let newRow: any[] = []
-            //         for (let key in record) {
-            //           newRow.push({
-            //             text: record[key],
-            //             fontSize: 20,
-            //             font: avaiableFonts.kh
-            //           })
-            //         }
+            printProps={{
+              generateColumnHeaders: (columns, avaiableFonts) => {
+                return columns.map((item) => ({
+                  text: item.title,
+                  fontSize: 20,
+                  font: avaiableFonts.kh
+                }))
+              },
+              generateColumnWidths: (columns) => {
+                return columns.map((item) =>
+                  item.dataIndex === 'name' ? 50 : '*'
+                )
+              },
+              generateTableBody: (visibleData: any, avaiableFonts) => {
+                const newRecords = visibleData.map(
+                  (record: { [index: string]: any }) => {
+                    let newRow: any[] = []
+                    for (let key in record) {
+                      newRow.push({
+                        text: record[key],
+                        fontSize: 20,
+                        font: avaiableFonts.kh
+                      })
+                    }
 
-            //         return newRow
-            //       }
-            //     )
+                    return newRow
+                  }
+                )
 
-            //     return newRecords
-            //   }
-            // }}
+                return newRecords
+              }
+            }}
             actionDelete={({ record, index }) => ({
               onClick: () => console.log('delete ', record, 'at ' + index)
             })}
@@ -237,7 +238,7 @@ const App = () => {
             newSources={data}
             restProps={{
               bordered: true,
-              scroll: { x: 1550, y: 400 },
+              scroll: { x: 1550 },
               size: 'small',
               rowKey: 'id'
             }}

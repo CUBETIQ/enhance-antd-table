@@ -41,7 +41,7 @@
     transparent 0
   );
   width: 100%;
-  height: 80vh;
+  height: 100%;
   background-repeat: no-repeat;
   background-image: var(--create-area-skeleton), var(--search-area-skeleton),
     var(--table-skeleton), var(--background-skeleton);
