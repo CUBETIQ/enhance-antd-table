@@ -23,6 +23,7 @@ interface renderOwnSearchInputArgs {
 }
 
 interface enhanceTableInterface<IRowData = any> {
+  isSearch?: boolean
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
@@ -186,28 +187,32 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           ) : null}
         </Space>
         <div>
-          {props.renderOwnSearchInput ? (
-            props.renderOwnSearchInput({
-              setDataSource
-            })
-          ) : (
-            <Input
-              placeholder='Search'
-              value={searchValue}
-              onChange={(e) => {
-                const currentSearchValue = e.target.value
-                setSearchValue(currentSearchValue)
-                const filteredData =
-                  props.newSources &&
-                  props.newSources.filter((entry) => {
-                    let lowerName = entry.name.toLocaleLowerCase()
-                    let valueSearch = currentSearchValue.toLocaleLowerCase()
-                    return lowerName.includes(valueSearch)
-                  })
-                setDataSource(filteredData)
-              }}
-            />
-          )}
+          {props.isSearch ? (
+            <div>
+              {props.renderOwnSearchInput ? (
+                props.renderOwnSearchInput({
+                  setDataSource
+                })
+              ) : (
+                <Input
+                  placeholder='Search'
+                  value={searchValue}
+                  onChange={(e) => {
+                    const currentSearchValue = e.target.value
+                    setSearchValue(currentSearchValue)
+                    const filteredData =
+                      props.newSources &&
+                      props.newSources.filter((entry) => {
+                        let lowerName = entry.name.toLocaleLowerCase()
+                        let valueSearch = currentSearchValue.toLocaleLowerCase()
+                        return lowerName.includes(valueSearch)
+                      })
+                    setDataSource(filteredData)
+                  }}
+                />
+              )}
+            </div>
+          ) : null}
         </div>
       </div>
       <div ref={componentRef}>
