@@ -102,6 +102,7 @@ const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const setDataSourceRef = useRef<any>()
+  //@ts-ignore
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -166,11 +167,11 @@ const App = () => {
         <TableSkeleton loading={loading}>
           <EnhanceAntdTable
             name={'exampleTable'}
-            withColumnsVisibleController={true}
-            renderCreateButton={({ setDataSource }: any) => {
-              setDataSourceRef.current = setDataSource
-              return <Button onClick={() => setModal(true)}>Create</Button>
-            }}
+            // withColumnsVisibleController={true}
+            // renderCreateButton={({ setDataSource }: any) => {
+            //   setDataSourceRef.current = setDataSource
+            //   return <Button onClick={() => setModal(true)}>Create</Button>
+            // }}
             printProps={{
               generateColumnHeaders: (columns, avaiableFonts) => {
                 return columns.map((item) => ({
@@ -237,7 +238,7 @@ const App = () => {
             newSources={data}
             restProps={{
               bordered: true,
-              scroll: { x: 1550, y: 400 },
+              scroll: { x: 1550 },
               size: 'small',
               rowKey: 'id'
             }}
