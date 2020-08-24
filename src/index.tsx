@@ -23,7 +23,6 @@ interface renderOwnSearchInputArgs {
 }
 
 interface enhanceTableInterface<IRowData = any> {
-  isSearch?: boolean
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
@@ -159,7 +158,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          marginTop: 10,
           marginBottom: 10
         }}
       >
@@ -186,33 +184,33 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             </div>
           ) : null}
         </Space>
-        <div>
-          {props.isSearch ? (
-            <div>
-              {props.renderOwnSearchInput ? (
-                props.renderOwnSearchInput({
-                  setDataSource
-                })
-              ) : (
-                <Input
-                  placeholder='Search'
-                  value={searchValue}
-                  onChange={(e) => {
-                    const currentSearchValue = e.target.value
-                    setSearchValue(currentSearchValue)
-                    const filteredData =
-                      props.newSources &&
-                      props.newSources.filter((entry) => {
-                        let lowerName = entry.name.toLocaleLowerCase()
-                        let valueSearch = currentSearchValue.toLocaleLowerCase()
-                        return lowerName.includes(valueSearch)
-                      })
-                    setDataSource(filteredData)
-                  }}
-                />
-              )}
-            </div>
-          ) : null}
+        <div
+          style={{
+            marginLeft: 'auto'
+          }}
+        >
+          {props.renderOwnSearchInput ? (
+            props.renderOwnSearchInput({
+              setDataSource
+            })
+          ) : (
+            <Input
+              placeholder='Search'
+              value={searchValue}
+              onChange={(e) => {
+                const currentSearchValue = e.target.value
+                setSearchValue(currentSearchValue)
+                const filteredData =
+                  props.newSources &&
+                  props.newSources.filter((entry) => {
+                    let lowerName = entry.name.toLocaleLowerCase()
+                    let valueSearch = currentSearchValue.toLocaleLowerCase()
+                    return lowerName.includes(valueSearch)
+                  })
+                setDataSource(filteredData)
+              }}
+            />
+          )}
         </div>
       </div>
       <div ref={componentRef}>

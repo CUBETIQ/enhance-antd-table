@@ -10,10 +10,21 @@ const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
   //@ts-ignore
   const { loading } = props
 
-  if (loading) {
-    return <div className={styles.tableSkeleton}></div>
-  }
-  return props.children
+  return (
+    <div className={loading ? styles.tableSkeleton : ''}>
+      <div
+        style={
+          loading
+            ? {
+                display: 'none'
+              }
+            : {}
+        }
+      >
+        {props.children}
+      </div>
+    </div>
+  )
 }
 
 export default TableSkeleton
