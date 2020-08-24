@@ -184,9 +184,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             </div>
           ) : null}
         </Space>
-        <div style={{
-          marginLeft: 'auto'
-        }}>
+        <div
+          style={{
+            marginLeft: 'auto'
+          }}
+        >
           {props.renderOwnSearchInput ? (
             props.renderOwnSearchInput({
               setDataSource
