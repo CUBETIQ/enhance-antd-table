@@ -13,15 +13,22 @@ const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
   return (
     <div className={loading ? styles.tableSkeleton : ''}>
       <div
-        style={
-          loading
-            ? {
-                display: 'none'
-              }
-            : {}
-        }
+        style={{
+          width: '100%',
+          height: '100%'
+        }}
       >
-        {props.children}
+        <div
+          style={
+            loading
+              ? {
+                  display: 'none'
+                }
+              : {}
+          }
+        >
+          {props.children}
+        </div>
       </div>
     </div>
   )
