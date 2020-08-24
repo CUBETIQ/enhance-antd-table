@@ -1,6 +1,6 @@
 {
   "name": "enhance-antd-table",
-  "version": "1.0.2-e",
+  "version": "1.0.2-f",
   "description": "enhance-antd-table antd-table @antd",
   "contributors": [
     {
@@ -83,7 +83,6 @@
     "antd": "^4.4.3",
     "moment": "^2.27.0",
     "pdfmake": "^0.1.67",
-    "react-to-print": "^2.9.0",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
   }
