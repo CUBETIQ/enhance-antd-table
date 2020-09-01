@@ -167,7 +167,12 @@ const App = () => {
         <TableSkeleton loading={loading}>
           <EnhanceAntdTable
             name={'exampleTable'}
-            // withColumnsVisibleController={true}
+            columnsVisibleControllerProps={{
+              show: true,
+              options: {
+                trigger: () => <div>hello</div>
+              }
+            }}
             // renderCreateButton={({ setDataSource }: any) => {
             //   setDataSourceRef.current = setDataSource
             //   return <Button onClick={() => setModal(true)}>Create</Button>
