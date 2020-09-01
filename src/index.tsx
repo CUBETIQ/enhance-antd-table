@@ -11,6 +11,7 @@ import ButtonPrint, {
   PrintProps
 } from './components/buttonPrint'
 import TableSkeleton from './components/tableSkeleton'
+import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 
 export interface ComponentExposeState {
   record?: any
@@ -22,11 +23,16 @@ interface renderOwnSearchInputArgs {
   setDataSource: React.Dispatch<React.SetStateAction<any[] | undefined>>
 }
 
+interface columnsVisibleControllerProps {
+  show?: boolean
+  options?: LiftedColumnVisibleControllerProps
+}
+
 interface enhanceTableInterface<IRowData = any> {
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
   printButton?: boolean
-  withColumnsVisibleController?: boolean
+  columnsVisibleControllerProps?: columnsVisibleControllerProps
   searchBy?: string
   name: string
   printProps?: PrintProps
@@ -110,7 +116,12 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     }
 
     return [...(props.newColumns || []), ...getAdditionalColumns()]
-  }, [setDataSource])
+  }, [
+    setDataSource,
+    props.renderOwnActionMenu,
+    props.actionDetails,
+    props.actionDelete
+  ])
 
   const [visibleColumns, setVisibleColumns] = useState<
     visibleColumnsInterface[]
@@ -167,13 +178,15 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               setDataSource
             })}
 
-          {props.withColumnsVisibleController && (
+          {props.columnsVisibleControllerProps?.show && (
             <ColumnVisibleController
               tableName={tableNamePrefix + props.name}
               setVisibleColumns={setVisibleColumns}
               visibleColumns={visibleColumns}
+              {...props.columnsVisibleControllerProps?.options}
             />
           )}
+
           {props.printButton === true || props.printProps ? (
             <div>
               <ButtonPrint
