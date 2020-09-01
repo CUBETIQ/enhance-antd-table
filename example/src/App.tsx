@@ -178,6 +178,7 @@ const App = () => {
             //   return <Button onClick={() => setModal(true)}>Create</Button>
             // }}
             printProps={{
+              trigger: ()=><div>hello</div>,
               generateColumnHeaders: (columns, avaiableFonts) => {
                 return columns.map((item) => ({
                   text: item.title,

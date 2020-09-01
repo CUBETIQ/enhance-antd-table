@@ -50,6 +50,7 @@ export interface PrintProps {
     availableFonts: availableFontsProp
   ) => TableCell[]
   docDefinition?: any
+  trigger?: () => React.ReactNode
 }
 
 export interface ButtonPrintProp extends PrintProps {
@@ -65,7 +66,8 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
     generateColumnWidths,
     generateColumnHeaders,
     docDefinition: _docDefinition,
-    generateTableBody
+    generateTableBody,
+    trigger
   } = props
 
   const handlePrint = () => {
@@ -147,26 +149,26 @@ const buttonPrint: React.FC<ButtonPrintProp> = (props) => {
     pdfMake.createPdf(docDefinition).print()
   }
 
-  return (
-    <Button
-      onClick={() => {
-        const allowPrint =
-          visibleColumns.filter((item) => {
-            return item.dataIndex !== actionDataIndex && item.visible
-          }).length > 0
+  const printClick = () => {
+    const allowPrint =
+      visibleColumns.filter((item) => {
+        return item.dataIndex !== actionDataIndex && item.visible
+      }).length > 0
 
-        if (allowPrint) {
-          handlePrint()
-        } else {
-          Modal.info({
-            content:
-              'Please show at least one column. Action column does not count!'
-          })
-        }
-      }}
-    >
-      Print
-    </Button>
+    if (allowPrint) {
+      handlePrint()
+    } else {
+      Modal.info({
+        content:
+          'Please show at least one column. Action column does not count!'
+      })
+    }
+  }
+
+  return trigger ? (
+    <div onClick={() => printClick()}>{trigger()}</div>
+  ) : (
+    <Button onClick={printClick}>Print</Button>
   )
 }
 
