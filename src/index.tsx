@@ -6,10 +6,6 @@ import { ButtonProps } from 'antd/es/button'
 import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
-import ButtonPrint, {
-  actionDataIndex,
-  PrintProps
-} from './components/buttonPrint'
 import TableSkeleton from './components/tableSkeleton'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 
@@ -29,13 +25,13 @@ interface columnsVisibleControllerProps {
 }
 
 interface enhanceTableInterface<IRowData = any> {
+  dataSourceToPrint?: any[]
   newColumns: Array<newColumnsInterface>
   newSources?: Array<any>
-  printButton?: boolean
   columnsVisibleControllerProps?: columnsVisibleControllerProps
   searchBy?: string
   name: string
-  printProps?: PrintProps
+  printHepler?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
   restProps?: TableProps<IRowData>
   actionColumnProps?: any
   actionDetails?: (
@@ -68,6 +64,7 @@ export interface visibleColumnsInterface {
 export interface createButtonPropsInterface extends ButtonProps {}
 
 const tableNamePrefix = '__eTable__'
+export const actionDataIndex = '__action'
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
@@ -186,16 +183,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
               {...props.columnsVisibleControllerProps?.options}
             />
           )}
-
-          {props.printButton === true || props.printProps ? (
-            <div>
-              <ButtonPrint
-                data={dataSource}
-                visibleColumns={visibleColumns}
-                {...props.printProps}
-              />
-            </div>
-          ) : null}
+          {props.printHepler && props.printHepler(visibleColumns)}
         </Space>
         <div
           style={{
