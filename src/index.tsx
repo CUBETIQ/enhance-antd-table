@@ -184,7 +184,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           flexWrap: 'wrap'
         }}
       >
-        <Space>
+        <Space
+          style={{
+            flexWrap: 'wrap'
+          }}
+        >
           {props.renderCreateButton &&
             props.renderCreateButton({
               setDataSource
