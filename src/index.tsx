@@ -175,12 +175,13 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   }, [props.newSources])
 
   return (
-    <div>
+    <React.Fragment>
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          marginBottom: 10
+          marginBottom: 10,
+          flexWrap: 'wrap'
         }}
       >
         <Space>
@@ -199,16 +200,17 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           )}
           {props.printHepler && props.printHepler(visibleColumns)}
         </Space>
-        <div
-          style={{
-            marginLeft: 'auto'
-          }}
-        >
-          {props.renderOwnSearchInput ? (
-            props.renderOwnSearchInput({
-              setDataSource
-            })
-          ) : (
+
+        {props.renderOwnSearchInput ? (
+          props.renderOwnSearchInput({
+            setDataSource
+          })
+        ) : (
+          <div
+            style={{
+              marginLeft: 'auto'
+            }}
+          >
             <Input
               placeholder='Search'
               value={searchValue}
@@ -225,9 +227,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
                 setDataSource(filteredData)
               }}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
+
       <div ref={componentRef}>
         <Table
           {...props.restProps}
@@ -240,7 +243,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           )}
         />
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 
