@@ -59,7 +59,7 @@ export interface visibleColumnsInterface {
   visible: boolean
   title: ColumnTitle<any>
   dataIndex: string
-  printRender?: (value: any, record: any, index: number) => any
+  printRender?: Function
 }
 
 export interface createButtonPropsInterface extends ButtonProps {}
