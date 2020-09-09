@@ -173,11 +173,10 @@ const App = () => {
             //     trigger: () => <div>hello</div>
             //   }
             // }}
-            // renderCreateButton={({ setDataSource }: any) => {
-            //   setDataSourceRef.current = setDataSource
-            //   return <Button onClick={() => setModal(true)}>Create</Button>
-            // }}
-
+            renderCreateButton={({ setDataSource }: any) => {
+              setDataSourceRef.current = setDataSource
+              return <Button onClick={() => setModal(true)}>Create</Button>
+            }}
             actionDelete={({ record, index }) => ({
               onClick: () => console.log('delete ', record, 'at ' + index)
             })}
