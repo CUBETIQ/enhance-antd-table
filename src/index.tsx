@@ -59,12 +59,30 @@ export interface visibleColumnsInterface {
   visible: boolean
   title: ColumnTitle<any>
   dataIndex: string
+  printRender?: (value: any, record: any, index: number) => any
 }
 
 export interface createButtonPropsInterface extends ButtonProps {}
 
 const tableNamePrefix = '__eTable__'
 export const actionDataIndex = '__action'
+
+const getColumnVisibleObj = (
+  item: newColumnsInterface,
+  visible: boolean = true
+) => {
+  const obj: visibleColumnsInterface = {
+    dataIndex: item.dataIndex,
+    title: item.title,
+    visible
+  }
+
+  if (item.render) {
+    obj.printRender = item.render
+  }
+
+  return obj
+}
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [dataSource, setDataSource] = useState(props.newSources)
@@ -135,22 +153,18 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     let newColumnsVisible: visibleColumnsInterface[] = []
     if (userColumnsVisibleConfig) {
       userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
-
-      newColumnsVisible = getDefaultColumns().map((item) => {
-        return {
-          dataIndex: item.dataIndex,
-          title: item.title,
-          visible: userColumnsVisibleConfig.some(
+      newColumnsVisible = getDefaultColumns().map((item) =>
+        getColumnVisibleObj(
+          item,
+          userColumnsVisibleConfig.some(
             (userColDataIndex: string) => userColDataIndex === item.dataIndex
           )
-        }
-      })
+        )
+      )
     } else {
-      newColumnsVisible = getDefaultColumns().map((item) => ({
-        dataIndex: item.dataIndex,
-        title: item.title,
-        visible: true
-      }))
+      newColumnsVisible = getDefaultColumns().map((item) =>
+        getColumnVisibleObj(item)
+      )
     }
 
     setVisibleColumns(newColumnsVisible)
