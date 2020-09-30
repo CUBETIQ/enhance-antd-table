@@ -135,7 +135,8 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     setDataSource,
     props.renderOwnActionMenu,
     props.actionDetails,
-    props.actionDelete
+    props.actionDelete,
+    props.newColumns
   ])
 
   const [visibleColumns, setVisibleColumns] = useState<
