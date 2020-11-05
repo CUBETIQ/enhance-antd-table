@@ -10,7 +10,8 @@
 -   [x] Print the whole tables.
 -   [x] Adjustment column.
 -   [x] Search in the tables.
-
+- 	[ ] Resizable column.
+-	[ ] Autofit the column mode.
 
 ## Install
 

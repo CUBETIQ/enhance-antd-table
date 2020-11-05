@@ -11036,6 +11036,11 @@ react-docgen-displayname-handler@^3.0.0:
   dependencies:
     ast-types "0.13.3"
 
+react-docgen-typescript@^1.20.5:
+  version "1.20.5"
+  resolved "https://npm.osa.cubetiqs.com/react-docgen-typescript/-/react-docgen-typescript-1.20.5.tgz#fb8d78a707243498436c2952bd3f6f488a68d4f3"
+  integrity sha512-AbLGMtn76bn7SYBJSSaKJrZ0lgNRRR3qL60PucM5M4v/AXyC8221cKBXW5Pyt9TfDRfe+LDnPNlg7TibxX0ovA==
+
 react-docgen@^5.0.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-5.3.0.tgz#9aabde5e69f1993c8ba839fd9a86696504654589"
@@ -11215,13 +11220,6 @@ react-styleguidist@^11.0.8:
     unist-util-visit "^2.0.0"
     webpack-dev-server "^3.9.0"
     webpack-merge "^4.2.2"
-
-react-to-print@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/react-to-print/-/react-to-print-2.9.0.tgz#98ab01df49208f35f2e2329a988b0cc11f72720d"
-  integrity sha512-5SwxY+Bg69cHmsIZQRwAUMBN4C5SxQ+IXBnmsU7YPfOpv32qYB6AocC0RXK4gOHO7pYj0NlM0z5ZFIHQ4cjlog==
-  dependencies:
-    prop-types "^15.7.2"
 
 react@^16.0.0, react@^16.13.1:
   version "16.13.1"

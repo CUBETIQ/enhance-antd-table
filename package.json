@@ -11,6 +11,11 @@
     {
       "name": "VuthPov",
       "url": "https://github.com/vuthpov"
+    },
+    {
+      "email": "sombochea@cubetiqs.com",
+      "name": "@SomboChea",
+      "url": "https://github.com/SomboChea"
     }
   ],
   "license": "MIT",
@@ -35,7 +40,8 @@
     "deploy": "gh-pages -d example/build",
     "docs-server": "styleguidist server",
     "docs-build": "styleguidist build",
-    "gen": "pdfmakefg assets/ src/components/vfs_fonts.js"
+    "gen": "pdfmakefg assets/ src/components/vfs_fonts.js",
+    "docs-deploy": "gh-pages -d styleguide"
   },
   "peerDependencies": {
     "react": "^16.0.0"
@@ -68,6 +74,7 @@
     "pdfmake-font-generator": "^1.0.1",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
+    "react-docgen-typescript": "^1.20.5",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
     "react-styleguidist": "^11.0.8",

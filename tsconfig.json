@@ -2,7 +2,12 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "esnext",
-    "lib": ["es5", "es6", "dom", "dom.iterable"],
+    "lib": [
+      "es5",
+      "es6",
+      "dom",
+      "dom.iterable"
+    ],
     "moduleResolution": "node",
     "jsx": "react",
     "sourceMap": true,
@@ -15,8 +20,16 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "example"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "example",
+    "build"
+  ]
 }

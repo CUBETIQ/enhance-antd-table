@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Button, Dropdown, Menu, Checkbox } from 'antd'
-import { visibleColumnsInterface } from '..'
+import { visibleColumnsInterface } from './Table'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface ColumnVisibleControllerProps
@@ -115,7 +115,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
         trigger={['click']}
         visible={dropdownVisible}
         getPopupContainer={() => document.getElementById(dropdownContainerId)!}
-        onVisibleChange={(visible) => {
+        onVisibleChange={(visible: any) => {
           setDropdownVisible(visible)
         }}
       >

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Dropdown, Menu, Space } from 'antd'
 import {
   DeleteOutlined,
@@ -6,7 +7,6 @@ import {
 } from '@ant-design/icons/lib'
 import { v4 as uuid } from 'uuid'
 import { MenuProps } from 'antd/es/menu'
-import React from 'react'
 
 export interface actionMenuPropsInterface extends MenuProps {
   [index: string]: any
