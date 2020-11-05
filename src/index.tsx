@@ -8,7 +8,6 @@ import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
-import TableSkeleton from './components/TableSkeleton'
 
 export interface ComponentExposeState {
   record?: any
