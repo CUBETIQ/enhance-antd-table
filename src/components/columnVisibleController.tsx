@@ -115,7 +115,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
         trigger={['click']}
         visible={dropdownVisible}
         getPopupContainer={() => document.getElementById(dropdownContainerId)!}
-        onVisibleChange={(visible) => {
+        onVisibleChange={(visible: any) => {
           setDropdownVisible(visible)
         }}
       >
