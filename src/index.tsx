@@ -270,5 +270,5 @@ EnhanceAntdTable.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-module.exports = EnhanceAntdTable
-module.exports.TableSkeleton = TableSkeleton
+export default EnhanceAntdTable
+export { TableSkeleton }
