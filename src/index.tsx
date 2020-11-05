@@ -189,7 +189,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           marginBottom: 10,
           flexWrap: 'wrap'
         }}
-        className={headerClassName}
+        className={headerClassName + ' e-tableHeader'}
       >
         <Space
           style={{
