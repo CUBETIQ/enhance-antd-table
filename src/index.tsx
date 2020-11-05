@@ -1,2 +1,5 @@
-export { default as Table } from './components/Table'
-export { default as TableSkeleton } from './components/TableSkeleton'
+import Table from './components/Table'
+import TableSkeleton from './components/TableSkeleton'
+
+export default Table
+export { TableSkeleton }
