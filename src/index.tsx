@@ -8,6 +8,7 @@ import ActionMenu, { actionMenuPropsInterface } from './components/actionMenu'
 import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
+import TableSkeleton from './components/TableSkeleton'
 
 export interface ComponentExposeState {
   record?: any
@@ -270,3 +271,4 @@ EnhanceAntdTable.propTypes = {
 }
 
 module.exports = EnhanceAntdTable
+module.exports.TableSkeleton = TableSkeleton
