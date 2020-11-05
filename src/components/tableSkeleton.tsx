@@ -34,4 +34,4 @@ const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
   )
 }
 
-export default TableSkeleton
+export { TableSkeleton }
