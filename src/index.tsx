@@ -271,4 +271,3 @@ EnhanceAntdTable.propTypes = {
 }
 
 module.exports = EnhanceAntdTable
-module.exports.TableSkeleton = TableSkeleton
