@@ -31,6 +31,7 @@ interface enhanceTableInterface<IRowData = any> {
   newSources?: Array<any>
   columnsVisibleControllerProps?: columnsVisibleControllerProps
   searchBy?: string
+  defaultVisibleColumns?: string[]
   name: string
   printHepler?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
   restProps?: TableProps<IRowData>
@@ -93,7 +94,8 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     renderOwnActionMenu,
     actionColumnProps,
     newColumns,
-    headerClassName
+    headerClassName,
+    defaultVisibleColumns = []
   } = props
   const [dataSource, setDataSource] = useState(props.newSources)
   const [searchValue, setSearchValue] = useState<string>('')
@@ -168,9 +170,20 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         )
       )
     } else {
-      newColumnsVisible = getDefaultColumns().map((item) =>
-        getColumnVisibleObj(item)
-      )
+      if (defaultVisibleColumns.length > 0) {
+        getDefaultColumns().forEach((item) => {
+          const foundItem = defaultVisibleColumns.some(
+            (d) => d === item.dataIndex
+          )
+          if (foundItem) {
+            newColumnsVisible.push(getColumnVisibleObj(item, true))
+          }
+        })
+      } else {
+        newColumnsVisible = getDefaultColumns().map((item) =>
+          getColumnVisibleObj(item)
+        )
+      }
     }
 
     setVisibleColumns(newColumnsVisible)
