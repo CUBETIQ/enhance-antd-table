@@ -175,9 +175,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           const foundItem = defaultVisibleColumns.some(
             (d) => d === item.dataIndex
           )
-          if (foundItem) {
-            newColumnsVisible.push(getColumnVisibleObj(item, true))
-          }
+          let newColumn = foundItem
+            ? getColumnVisibleObj(item, true)
+            : getColumnVisibleObj(item, false)
+
+          newColumnsVisible.push(newColumn)
         })
       } else {
         newColumnsVisible = getDefaultColumns().map((item) =>
