@@ -68,6 +68,9 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
             .filter((item) => item.visible)
             .map((item) => item.dataIndex)}
           onChange={checkboxGroupChange}
+          style={{
+            width: '100%'
+          }}
         >
           <Menu
             style={{
