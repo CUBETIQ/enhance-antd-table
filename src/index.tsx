@@ -37,6 +37,7 @@ interface enhanceTableInterface<IRowData = any> {
   restProps?: TableProps<IRowData>
   headerClassName?: string
   actionColumnProps?: any
+  headerStyle?: any
   actionDetails?: (
     ComponentExposeState: ComponentExposeState
   ) => actionMenuPropsInterface
@@ -94,7 +95,8 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     renderOwnActionMenu,
     actionColumnProps,
     newColumns,
-    headerClassName,
+    headerClassName = '',
+    headerStyle = {},
     defaultVisibleColumns = []
   } = props
   const [dataSource, setDataSource] = useState(props.newSources)
@@ -195,15 +197,18 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     setDataSource(props.newSources)
   }, [props.newSources])
 
+  let tableHeaderStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    flexWrap: 'wrap',
+    ...headerStyle
+  }
+
   return (
     <React.Fragment>
       <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: 10,
-          flexWrap: 'wrap'
-        }}
+        style={tableHeaderStyle}
         className={'e-tableHeader ' + headerClassName}
       >
         <Space
