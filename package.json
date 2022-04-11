@@ -1,6 +1,6 @@
 {
   "name": "enhance-antd-table",
-  "version": "1.0.3-d",
+  "version": "1.0.4",
   "description": "enhance-antd-table antd-table @antd",
   "contributors": [
     {
@@ -40,7 +40,6 @@
     "deploy": "gh-pages -d example/build",
     "docs-server": "styleguidist server",
     "docs-build": "styleguidist build",
-    "gen": "pdfmakefg assets/ src/components/vfs_fonts.js",
     "docs-deploy": "gh-pages -d styleguide"
   },
   "peerDependencies": {
@@ -51,7 +50,6 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/node": "^12.12.38",
-    "@types/pdfmake": "^0.1.14",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.7",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
@@ -71,7 +69,6 @@
     "gh-pages": "^2.2.0",
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
-    "pdfmake-font-generator": "^1.0.1",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-docgen-typescript": "^1.20.5",
@@ -89,7 +86,6 @@
     "@types/uuid": "^8.0.0",
     "antd": "^4.4.3",
     "moment": "^2.27.0",
-    "pdfmake": "^0.1.67",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
   }
