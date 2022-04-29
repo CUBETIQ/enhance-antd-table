@@ -67,5 +67,8 @@
     "antd": "^4.19.5",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
