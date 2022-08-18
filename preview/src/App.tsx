@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 // @ts-ignore
-import EnhanceAntdTable, { newColumnsInterface } from 'enhance-antd-table'
+import EnhanceAntdTable, { newColumnsInterface } from '@cubetiq/enhance-antd-table'
 //@ts-ignore
 import { Tag, Modal, Menu, Button } from 'antd'
 import { v4 as uuid } from 'uuid'

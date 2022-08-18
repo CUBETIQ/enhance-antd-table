@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import EnhanceAntdTable, {
   newColumnsInterface,
   TableSkeleton
-} from 'enhance-antd-table'
+} from '@cubetiq/enhance-antd-table'
 //@ts-ignore
 import { Tag, Modal, Menu, Button } from 'antd'
 //@ts-ignore
@@ -11,7 +11,7 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
-import 'enhance-antd-table/dist/index.css'
+import '@cubetiq/enhance-antd-table/dist/index.css'
 
 const layout = {
   labelCol: { span: 4 },
