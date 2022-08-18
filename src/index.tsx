@@ -148,15 +148,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     newColumns
   ])
 
-  const [visibleColumns, setVisibleColumns] = useState<
-    visibleColumnsInterface[]
-  >([])
-
-  const columnsVisibleConfigKey = useMemo(
-    () => tableNamePrefix + props.name,
-    []
-  )
-  useEffect(() => {
+  const getVisibleColumns = () => {
     let userColumnsVisibleConfig: any = localStorage.getItem(
       columnsVisibleConfigKey
     )
@@ -189,6 +181,20 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         )
       }
     }
+
+    return newColumnsVisible
+  }
+
+  const [visibleColumns, setVisibleColumns] = useState<
+    visibleColumnsInterface[]
+  >(getVisibleColumns())
+
+  const columnsVisibleConfigKey = useMemo(
+    () => tableNamePrefix + props.name,
+    []
+  )
+  useEffect(() => {
+    let newColumnsVisible = getVisibleColumns()
 
     setVisibleColumns(newColumnsVisible)
   }, [columnsVisibleConfigKey])
