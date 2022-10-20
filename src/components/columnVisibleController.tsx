@@ -81,6 +81,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
             {visibleColumns.map((item) => {
               return (
                 <Menu.Item key={item.dataIndex}>
+                  {/* @ts-ignore */}
                   <Checkbox value={item.dataIndex}>{item.title}</Checkbox>
                 </Menu.Item>
               )
@@ -122,6 +123,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
           setDropdownVisible(visible)
         }}
       >
+        {/* @ts-ignore */}
         {trigger ? trigger() : <Button>Columns</Button>}
       </Dropdown>
     </div>
