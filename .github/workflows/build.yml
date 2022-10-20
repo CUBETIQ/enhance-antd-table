@@ -2,8 +2,8 @@ name: Build Packages and Release
 on:
   push:
     branches: [release]
-  pull_request:
-    branches: [master]
+  # pull_request:
+  #   branches: [master]
 jobs:
   build:
     runs-on: ubuntu-16.04
