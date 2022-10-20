@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
@@ -222,20 +222,22 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             flexWrap: 'wrap'
           }}
         >
-          {props.renderCreateButton &&
-            props.renderCreateButton({
-              setDataSource
-            })}
+          <React.Fragment>
+            {props.renderCreateButton &&
+              props.renderCreateButton({
+                setDataSource
+              })}
 
-          {props.columnsVisibleControllerProps?.show && (
-            <ColumnVisibleController
-              tableName={tableNamePrefix + props.name}
-              setVisibleColumns={setVisibleColumns}
-              visibleColumns={visibleColumns}
-              {...props.columnsVisibleControllerProps?.options}
-            />
-          )}
-          {props.printHepler && props.printHepler(visibleColumns)}
+            {props.columnsVisibleControllerProps?.show && (
+              <ColumnVisibleController
+                tableName={tableNamePrefix + props.name}
+                setVisibleColumns={setVisibleColumns}
+                visibleColumns={visibleColumns}
+                {...props.columnsVisibleControllerProps?.options}
+              />
+            )}
+            {props.printHepler && props.printHepler(visibleColumns)}
+          </React.Fragment>
         </Space>
 
         {props.renderOwnSearchInput ? (
@@ -296,5 +298,6 @@ EnhanceAntdTable.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default EnhanceAntdTable
+export default EnhanceAntdTable as any
+
 export { TableSkeleton }
