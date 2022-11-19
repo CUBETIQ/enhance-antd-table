@@ -1,17 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 // @ts-ignore
 import EnhanceAntdTable, {
   newColumnsInterface,
   TableSkeleton
 } from '@cubetiq/enhance-antd-table'
 //@ts-ignore
-import { Tag, Modal, Menu, Button } from 'antd'
+import { Button, Modal, Tag } from 'antd'
 //@ts-ignore
-import { v4 as uuid } from 'uuid'
 //@ts-ignore
-import { DeleteOutlined } from '@ant-design/icons/lib'
-import FormCreate from './FormCreate'
 import '@cubetiq/enhance-antd-table/dist/index.css'
+import FormCreate from './FormCreate'
 
 const layout = {
   labelCol: { span: 4 },
@@ -200,7 +198,7 @@ const App = () => {
               <Button
                 onClick={() => {
                   setDataSource((old) => {
-                    return old?.length == 0 ? data : []
+                    return old?.length === 0 ? data : []
                   })
                 }}
               >
@@ -215,6 +213,7 @@ const App = () => {
               size: 'small',
               rowKey: 'id'
             }}
+            resizableTitle={true}
           />
         </TableSkeleton>
       </div>
