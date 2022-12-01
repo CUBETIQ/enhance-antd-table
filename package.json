@@ -64,7 +64,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@types/styled-components": "^5.1.1",
-    "antd": "^4.19.5",
+    "antd": "^5.0.3",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
   },
