@@ -20,8 +20,8 @@
   ],
   "license": "MIT",
   "repository": "https://github.com/CUBETIQ/enhance-antd-table.git",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "main": "build/index.js",
+  "module": "build/index.modern.js",
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
@@ -34,40 +34,41 @@
     "test:build": "run-s build",
     "install-pk": "yarn install",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy-storybook": "gh-pages -d storybook-static",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "react": "^18.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-interactions": "^6.5.14",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/cli": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/react": "^6.5.14",
+    "@storybook/testing-library": "^0.0.13",
     "@types/node": "^18.0.3",
     "@types/react": "^17.0.39",
-<<<<<<< HEAD
     "@types/react-dom": "^17.0.11",
     "@types/uuid": "^8.0.0",
-=======
-    "@types/react-dom": "^18.0.9",
->>>>>>> 6000a8b24af5664b6c7320413d34e893a0e4dd0d
+    "babel-loader": "^8.3.0",
     "gh-pages": "^4.0.0",
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "react": "^18.0.0",
-<<<<<<< HEAD
     "react-docgen-typescript": "^1.20.5",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.1",
-=======
-    "react-dom": "^18.0.0",
-    "react-docgen-typescript": "^2.2.2",
-    "react-scripts": "^5.0.1",
-    "react-styleguidist": "^13.0.0",
-    "@types/uuid": "^8.0.0",
->>>>>>> 6000a8b24af5664b6c7320413d34e893a0e4dd0d
     "typescript": "^4.7.2"
   },
   "files": [
-    "dist"
+    "build"
   ],
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
