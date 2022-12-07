@@ -13,13 +13,13 @@
 Antd v4
 
 ```bash
-yarn add enhance-antd-table@^1.0.10
+yarn add @cubetiq/enhance-antd-table@^1.0.10
 ```
 
 Antd v5
 
 ```bash
-yarn add enhance-antd-table@^2.0.0
+yarn add @cubetiq/enhance-antd-table@^2.0.0
 ```
 
 ## Usage

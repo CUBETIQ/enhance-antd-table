@@ -1,6 +1,6 @@
 {
   "name": "@cubetiq/enhance-antd-table",
-  "version": "2.0.0",
+  "version": "2.0.0-a",
   "description": "enhance-antd-table antd-table @antd",
   "contributors": [
     {
@@ -18,7 +18,6 @@
       "url": "https://github.com/SomboChea"
     }
   ],
-  "homepage": "http://YOUR_GITHUB_USERNAME.github.io/REPO_NAME",
   "license": "MIT",
   "repository": "https://github.com/CUBETIQ/enhance-antd-table.git",
   "main": "build/index.js",
