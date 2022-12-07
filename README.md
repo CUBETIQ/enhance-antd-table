@@ -24,7 +24,7 @@ yarn add enhance-antd-table@^2.0.0
 
 ## Usage
 
-**[Full tutorial](https://github.com/LyhourChhen/enhance-antd-table/blob/master/example/src/App.tsx)**
+**[Full tutorial](https://cubetiq.github.io/enhance-antd-table)**
 
 ```tsx
 import React, { Component } from 'react'

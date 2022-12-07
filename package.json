@@ -18,6 +18,7 @@
       "url": "https://github.com/SomboChea"
     }
   ],
+  "homepage": "http://YOUR_GITHUB_USERNAME.github.io/REPO_NAME",
   "license": "MIT",
   "repository": "https://github.com/CUBETIQ/enhance-antd-table.git",
   "main": "build/index.js",
