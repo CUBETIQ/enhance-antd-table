@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react'
-// @ts-ignore
+
 import EnhanceAntdTable, {
   newColumnsInterface,
   TableSkeleton
@@ -11,7 +12,6 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
-import '@cubetiq/enhance-antd-table/dist/index.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -222,6 +222,7 @@ const App = () => {
             }}
           />
         </TableSkeleton>
+        hello
       </div>
     </div>
   )
