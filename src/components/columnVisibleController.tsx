@@ -91,9 +91,10 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
         <div
           style={{
             background: '#fff',
-            padding: '8px 16px 8px 13px',
+            padding: '8px 17px 8px 13px',
             border: '1px solid #eee',
-            transform: 'translateY(-5px)'
+            transform: 'translateY(-6px)',
+            borderRadius: '0 0 8px 8px'
           }}
         >
           <Checkbox
