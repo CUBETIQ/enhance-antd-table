@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "build",
     "module": "esnext",
     "lib": [
       "es5",
@@ -30,6 +30,7 @@
     "node_modules",
     "dist",
     "example",
-    "build"
+    "build",
+    "src/stories/**"
   ]
 }

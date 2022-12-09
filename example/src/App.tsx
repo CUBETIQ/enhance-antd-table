@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react'
-// @ts-ignore
+
 import EnhanceAntdTable, {
   newColumnsInterface,
   TableSkeleton
@@ -11,7 +12,6 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
-import '@cubetiq/enhance-antd-table/dist/index.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -177,10 +177,10 @@ const App = () => {
               setDataSourceRef.current = setDataSource
               return <Button onClick={() => setModal(true)}>Create</Button>
             }}
-            actionDelete={({ record, index }) => ({
+            actionDelete={({ record, index }: any) => ({
               onClick: () => console.log('delete ', record, 'at ' + index)
             })}
-            actionDetails={({ record, index }) => ({
+            actionDetails={({ record, index }: any) => ({
               onClick: () => console.log(record, 'at ' + index)
             })}
             // renderOwnActionMenu={({ record, index }) => (
@@ -196,17 +196,22 @@ const App = () => {
             //     </Menu.Item>
             //   </Menu>
             // )}
-            renderOwnSearchInput={({ setDataSource }) => (
-              <Button
-                onClick={() => {
-                  setDataSource((old) => {
-                    return old?.length == 0 ? data : []
-                  })
-                }}
-              >
-                Toggle
-              </Button>
-            )}
+            renderOwnSearchInput={(args: any) => {
+              const { setDataSource } = args
+              console.log(setDataSource)
+
+              return (
+                <Button
+                  onClick={() => {
+                    setDataSource((old: any) => {
+                      return old?.length == 0 ? data : []
+                    })
+                  }}
+                >
+                  Toggle
+                </Button>
+              )
+            }}
             newColumns={columns}
             newSources={data}
             restProps={{
@@ -217,6 +222,7 @@ const App = () => {
             }}
           />
         </TableSkeleton>
+        hello
       </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-// import 'antd/dist/antd.css'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
@@ -9,6 +8,7 @@ import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
+import { Resizable } from 're-resizable'
 
 export interface ComponentExposeState {
   record?: any
@@ -89,7 +89,7 @@ const getColumnVisibleObj = (
 }
 
 const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
-  const {
+  let {
     actionDelete,
     actionDetails,
     renderOwnActionMenu,
@@ -138,6 +138,22 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       return additionalColumns
     }
 
+    newColumns = newColumns.map((item) => {
+      return {
+        ...item,
+        title: (
+          <Resizable
+            enable={{
+              left: true,
+              right: true
+            }}
+          >
+            {item.title}
+          </Resizable>
+        )
+      }
+    })
+
     return [...(newColumns || []), ...getAdditionalColumns()]
   }, [
     dataSource,
@@ -147,6 +163,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     actionDelete,
     newColumns
   ])
+
+  const columnsVisibleConfigKey = useMemo(
+    () => tableNamePrefix + props.name,
+    []
+  )
 
   const getVisibleColumns = () => {
     let userColumnsVisibleConfig: any = localStorage.getItem(
@@ -189,10 +210,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     visibleColumnsInterface[]
   >(getVisibleColumns())
 
-  const columnsVisibleConfigKey = useMemo(
-    () => tableNamePrefix + props.name,
-    []
-  )
   useEffect(() => {
     let newColumnsVisible = getVisibleColumns()
 
@@ -298,6 +315,6 @@ EnhanceAntdTable.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default EnhanceAntdTable as any
+export default EnhanceAntdTable
 
 export { TableSkeleton }
