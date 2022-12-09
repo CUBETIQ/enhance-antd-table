@@ -20,12 +20,7 @@ export default defineConfig(() => {
         name: '@cubetiq/enhance-antd-table',
 
         fileName: 'index',
-        // rollupOptions: {
-        //   output: {
-        //     chunkFileNames: '[name].js',
-        //     entryFileNames: '[name].js'
-        //   }
-        // },
+
         sourcemap: true
       },
       rollupOptions: {
@@ -34,7 +29,6 @@ export default defineConfig(() => {
 
       outDir: 'build'
     },
-    target: 'esnext',
-    
+    target: 'esnext'
   }
 })

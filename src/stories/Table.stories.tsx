@@ -91,8 +91,9 @@ const args = {
     return <div>search</div>
   },
   renderOwnActionMenu: () => {
-    return <div>menu</div>
+    return <div></div>
   },
+
   options: {
     trigger: () => {
       return <Button>Columns</Button>
@@ -101,7 +102,7 @@ const args = {
   renderCreateButton: () => {
     return <div>create</div>
   },
-  defaultVisibleColumns: ['name', 'address']
+  defaultVisibleColumns: ['name', 'address', 'tags']
 }
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

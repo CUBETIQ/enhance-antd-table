@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
@@ -8,7 +8,9 @@ import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
-import { Resizable } from 're-resizable'
+import styles from './styles.module.less'
+import ResizableTitle from './components/resizeTitle'
+import 'react-resizable/css/styles.css'
 
 export interface ComponentExposeState {
   record?: any
@@ -103,9 +105,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
   const [searchValue, setSearchValue] = useState<string>('')
   const componentRef = useRef(null)
 
-  const getDefaultColumns: () => Array<
-    newColumnsInterface
-  > = useCallback(() => {
+  const [defaultColumns, setDefaultColumns] = useState<
+    Array<newColumnsInterface>
+  >([])
+
+  useEffect(() => {
     const getAdditionalColumns = () => {
       let additionalColumns: any[] = []
 
@@ -138,23 +142,32 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       return additionalColumns
     }
 
-    newColumns = newColumns.map((item) => {
+    let result = [...(newColumns || []), ...getAdditionalColumns()]
+
+    const handleResize = (index: any) => (e: any, { size }: any) => {
+      setDefaultColumns((old: any) => {
+        const nextColumns = [...old]
+        nextColumns[index] = {
+          ...nextColumns[index],
+          width: size.width
+        }
+        return nextColumns
+      })
+    }
+
+    result = result.map((item, index) => {
       return {
         ...item,
-        title: (
-          <Resizable
-            enable={{
-              left: true,
-              right: true
-            }}
-          >
-            {item.title}
-          </Resizable>
-        )
+
+        onHeaderCell: (column: any) =>
+          ({
+            width: column.width || 10,
+            onResize: handleResize(index)
+          } as any)
       }
     })
 
-    return [...(newColumns || []), ...getAdditionalColumns()]
+    setDefaultColumns(result)
   }, [
     dataSource,
     renderOwnActionMenu,
@@ -176,7 +189,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     let newColumnsVisible: visibleColumnsInterface[] = []
     if (userColumnsVisibleConfig) {
       userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
-      newColumnsVisible = getDefaultColumns().map((item) =>
+      newColumnsVisible = defaultColumns.map((item) =>
         getColumnVisibleObj(
           item,
           userColumnsVisibleConfig.some(
@@ -186,10 +199,11 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
       )
     } else {
       if (defaultVisibleColumns.length > 0) {
-        getDefaultColumns().forEach((item) => {
+        defaultColumns.forEach((item) => {
           const foundItem = defaultVisibleColumns.some(
-            (d) => d === item.dataIndex
+            (d) => d == item.dataIndex
           )
+
           let newColumn = foundItem
             ? getColumnVisibleObj(item, true)
             : getColumnVisibleObj(item, false)
@@ -197,7 +211,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           newColumnsVisible.push(newColumn)
         })
       } else {
-        newColumnsVisible = getDefaultColumns().map((item) =>
+        newColumnsVisible = defaultColumns.map((item) =>
           getColumnVisibleObj(item)
         )
       }
@@ -214,7 +228,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     let newColumnsVisible = getVisibleColumns()
 
     setVisibleColumns(newColumnsVisible)
-  }, [columnsVisibleConfigKey])
+  }, [columnsVisibleConfigKey, defaultColumns])
 
   useEffect(() => {
     setDataSource(props.newSources)
@@ -228,11 +242,19 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
     ...headerStyle
   }
 
+  let columnsResult = defaultColumns.filter((item) => {
+    return visibleColumns.some((visibleCol) => {
+      let a = visibleCol.dataIndex == item.dataIndex
+
+      return a && visibleCol.visible
+    })
+  })
+
   return (
     <React.Fragment>
       <div
         style={tableHeaderStyle}
-        className={'e-tableHeader ' + headerClassName}
+        className={` e-tableHeader ` + headerClassName}
       >
         <Space
           style={{
@@ -287,16 +309,17 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         )}
       </div>
 
-      <div ref={componentRef}>
+      <div ref={componentRef} className={`${styles.enhancedTable} `}>
         <Table
           {...props.restProps}
           dataSource={dataSource}
-          columns={getDefaultColumns().filter((item) =>
-            visibleColumns.some(
-              (visibleCol) =>
-                visibleCol.dataIndex === item.dataIndex && visibleCol.visible
-            )
-          )}
+          columns={columnsResult}
+          components={{
+            ...props.restProps?.components,
+            header: {
+              cell: ResizableTitle
+            }
+          }}
         />
       </div>
     </React.Fragment>

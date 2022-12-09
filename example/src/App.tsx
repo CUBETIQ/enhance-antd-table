@@ -12,6 +12,7 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
+import '@cubetiq/enhance-antd-table/style.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -198,7 +199,6 @@ const App = () => {
             // )}
             renderOwnSearchInput={(args: any) => {
               const { setDataSource } = args
-              console.log(setDataSource)
 
               return (
                 <Button
