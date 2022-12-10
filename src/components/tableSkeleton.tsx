@@ -18,17 +18,7 @@ const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
           height: '100%'
         }}
       >
-        <div
-          style={
-            loading
-              ? {
-                  display: 'none'
-                }
-              : {}
-          }
-        >
-          {props.children}
-        </div>
+        <div>{loading ? <React.Fragment /> : props.children}</div>
       </div>
     </div>
   )

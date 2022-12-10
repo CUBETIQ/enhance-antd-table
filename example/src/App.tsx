@@ -60,6 +60,13 @@ for (let i = 0; i < 4; i++) {
   data.push(...dummy)
 }
 
+data = data.map((item, index) => {
+  return {
+    ...item,
+    id: index
+  }
+})
+
 const columns: Array<newColumnsInterface> = [
   {
     title: 'Name',

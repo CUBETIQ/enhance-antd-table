@@ -11,6 +11,8 @@ import { TableSkeleton } from './components/tableSkeleton'
 import styles from './styles.module.less'
 import ResizableTitle from './components/resizeTitle'
 import 'react-resizable/css/styles.css'
+import MotionBody from './components/motionBody'
+import MotionRow from './components/motionRow'
 
 export interface ComponentExposeState {
   record?: any
@@ -318,6 +320,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             ...props.restProps?.components,
             header: {
               cell: ResizableTitle
+            },
+            body: {
+              wrapper: MotionBody,
+              row: MotionRow
             }
           }}
         />
