@@ -93,7 +93,7 @@
     "framer-motion": "^7.6.19",
     "react-resizable": "^3.0.4",
     "styled-components": "^5.1.1",
-    "uuid": "^8.2.0"
+    "uuid": "^9.0.0"
   },
   "publishConfig": {
     "access": "public"
