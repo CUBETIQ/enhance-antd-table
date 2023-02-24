@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import { Button, Dropdown, Menu, Checkbox } from 'antd'
 import { visibleColumnsInterface } from '../index'
-import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 interface ColumnVisibleControllerProps
   extends LiftedColumnVisibleControllerProps {
