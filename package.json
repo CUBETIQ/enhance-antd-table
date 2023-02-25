@@ -90,7 +90,7 @@
     "@ant-design/icons": "^4.8.0",
     "@types/styled-components": "^5.1.1",
     "antd": "5.x",
-    "framer-motion": "^7.6.19",
+    "framer-motion": "^10.0.0",
     "react-resizable": "^3.0.4",
     "styled-components": "^5.1.1",
     "uuid": "^9.0.0"
