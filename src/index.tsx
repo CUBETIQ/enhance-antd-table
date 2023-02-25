@@ -8,11 +8,10 @@ import ColumnVisibleController from './components/columnVisibleController'
 import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
-import styles from './styles.module.less'
 import ResizableTitle from './components/resizeTitle'
-import 'react-resizable/css/styles.css'
 import MotionBody from './components/motionBody'
 import MotionRow from './components/motionRow'
+import styled from 'styled-components'
 
 export interface ComponentExposeState {
   record?: any
@@ -74,6 +73,8 @@ export interface createButtonPropsInterface extends ButtonProps {}
 
 const tableNamePrefix = '__eTable__'
 export const actionDataIndex = '__action'
+
+const EnhancedTableStyled = styled.div``
 
 const getColumnVisibleObj = (
   item: newColumnsInterface,
@@ -146,16 +147,18 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 
     let result = [...(newColumns || []), ...getAdditionalColumns()]
 
-    const handleResize = (index: any) => (e: any, { size }: any) => {
-      setDefaultColumns((old: any) => {
-        const nextColumns = [...old]
-        nextColumns[index] = {
-          ...nextColumns[index],
-          width: size.width
-        }
-        return nextColumns
-      })
-    }
+    const handleResize =
+      (index: any) =>
+      (e: any, { size }: any) => {
+        setDefaultColumns((old: any) => {
+          const nextColumns = [...old]
+          nextColumns[index] = {
+            ...nextColumns[index],
+            width: size.width
+          }
+          return nextColumns
+        })
+      }
 
     result = result.map((item, index) => {
       return {
@@ -311,7 +314,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
         )}
       </div>
 
-      <div ref={componentRef} className={`${styles.enhancedTable} `}>
+      <EnhancedTableStyled ref={componentRef}>
         <Table
           {...props.restProps}
           dataSource={dataSource}
@@ -327,7 +330,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             }
           }}
         />
-      </div>
+      </EnhancedTableStyled>
     </React.Fragment>
   )
 }
@@ -344,6 +347,6 @@ EnhanceAntdTable.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default EnhanceAntdTable
-
 export { TableSkeleton }
+
+export default EnhanceAntdTable

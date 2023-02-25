@@ -12,7 +12,8 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
-import '@cubetiq/enhance-antd-table/style.css'
+// import 'react-resizable/css/styles.css'
+import '@cubetiq/enhance-antd-table/dist/style.css'
 
 const layout = {
   labelCol: { span: 4 },

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Resizable } from 'react-resizable'
+import 'react-resizable/css/styles.css'
 
 const ResizableTitle: React.FC<any> = (props) => {
   const { onResize, width, ...restProps } = props

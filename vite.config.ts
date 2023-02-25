@@ -1,6 +1,6 @@
+import react from '@vitejs/plugin-react'
 import * as path from 'path'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 // import dts from 'vite-dts'
 
@@ -13,21 +13,18 @@ export default defineConfig(() => {
       }),
       react()
     ],
-
     build: {
       lib: {
         entry: path.resolve(__dirname, 'src/index.tsx'),
         name: '@cubetiq/enhance-antd-table',
-
         fileName: 'index',
-
-        sourcemap: true
+        sourcemap: true,
+        formats: ['es', 'cjs'],
       },
       rollupOptions: {
         external: ['react', 'react/jsx-runtime', 'react-dom']
       },
-
-      outDir: 'build'
+      outDir: 'dist',
     },
     target: 'esnext'
   }
