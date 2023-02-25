@@ -85,7 +85,7 @@
     "react-scripts": "^5.0.1",
     "rimraf": "^4.0.0",
     "typescript": "^4.7.2",
-    "vite": "^3.2.4",
+    "vite": "^4.0.0",
     "vite-dts": "^1.0.4",
     "vite-plugin-dts": "^2.0.0"
   },
