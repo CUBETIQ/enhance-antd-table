@@ -87,14 +87,14 @@ const App = () => {
         centered={true}
         title={'Delete'}
         width={350}
-        visible={openDeleteModal}
+        open={openDeleteModal}
         onCancel={() => setOpenDeleteModal(false)
         }>
         <div style={{ alignItems: 'center' }}>
           <h3>Are you sure you want to delete this?</h3>
         </div>
       </Modal>
-      <Modal visible={modal}
+      <Modal open={modal}
              centered={true}
              onCancel={() => setModal(false)}
              onOk={() => setModal(false)}

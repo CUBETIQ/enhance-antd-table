@@ -137,7 +137,7 @@ const App = () => {
         centered={true}
         title={'Delete'}
         width={350}
-        visible={openDeleteModal}
+        open={openDeleteModal}
         onCancel={() => setOpenDeleteModal(false)}
       >
         <div style={{ alignItems: 'center' }}>
@@ -146,7 +146,7 @@ const App = () => {
       </Modal>
       <Modal
         title='Create'
-        visible={modal}
+        open={modal}
         footer={null}
         centered={true}
         onCancel={() => setModal(false)}

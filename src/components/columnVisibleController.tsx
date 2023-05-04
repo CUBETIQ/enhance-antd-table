@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Button, Dropdown, Menu, Checkbox } from 'antd'
 import { visibleColumnsInterface } from '../index'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
@@ -23,10 +23,11 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
 ) => {
   //@ts-ignore
   const { visibleColumns, setVisibleColumns, trigger } = props
-  const [dropdownVisible, setDropdownVisible] = useState(false)
+  // const [dropdownVisible, setDropdownVisible] = useState(false)
 
   const renderMenus = () => {
     const checkboxGroupChange = (values: string[]) => {
+      console.log("values column: ", values)
       const newColumns = [...visibleColumns].map((item) => {
         const visible = values.some(
           (visibleCol) => visibleCol === item.dataIndex
@@ -109,6 +110,7 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
     )
   }
 
+
   const dropdownContainerId = useMemo(() => {
     return dropdownContainerPrefix + props.tableName
   }, [])
@@ -116,13 +118,15 @@ const ColumnVisibleController: React.FC<ColumnVisibleControllerProps> = (
   return (
     <div id={dropdownContainerId}>
       <Dropdown
-        overlay={renderMenus()}
+
+        dropdownRender={renderMenus}
+        // overlay={renderMenus()}
         trigger={['click']}
-        visible={dropdownVisible}
+        // visible={dropdownVisible}
         getPopupContainer={() => document.getElementById(dropdownContainerId)!}
-        onVisibleChange={(visible: any) => {
-          setDropdownVisible(visible)
-        }}
+      // onVisibleChange={(visible: any) => {
+      //   setDropdownVisible(visible)
+      // }}
       >
         {/* @ts-ignore */}
         {trigger ? trigger() : <Button>Columns</Button>}
