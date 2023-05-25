@@ -169,7 +169,6 @@ const App = () => {
       </Modal>
       <div
         style={{
-          width: 1250,
           height: '100vh'
         }}
       >
