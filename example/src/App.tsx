@@ -12,6 +12,8 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
+// import 'react-resizable/css/styles.css'
+import '@cubetiq/enhance-antd-table/dist/style.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -58,6 +60,13 @@ let data: any[] = []
 for (let i = 0; i < 4; i++) {
   data.push(...dummy)
 }
+
+data = data.map((item, index) => {
+  return {
+    ...item,
+    id: index
+  }
+})
 
 const columns: Array<newColumnsInterface> = [
   {
@@ -128,7 +137,7 @@ const App = () => {
         centered={true}
         title={'Delete'}
         width={350}
-        visible={openDeleteModal}
+        open={openDeleteModal}
         onCancel={() => setOpenDeleteModal(false)}
       >
         <div style={{ alignItems: 'center' }}>
@@ -137,7 +146,7 @@ const App = () => {
       </Modal>
       <Modal
         title='Create'
-        visible={modal}
+        open={modal}
         footer={null}
         centered={true}
         onCancel={() => setModal(false)}
@@ -160,7 +169,6 @@ const App = () => {
       </Modal>
       <div
         style={{
-          width: 1250,
           height: '100vh'
         }}
       >
@@ -198,7 +206,6 @@ const App = () => {
             // )}
             renderOwnSearchInput={(args: any) => {
               const { setDataSource } = args
-              console.log(setDataSource)
 
               return (
                 <Button
