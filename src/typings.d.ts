@@ -2,10 +2,10 @@
  * Default LESS definition for typescript,
  * will be overridden with file-specific definitions by rollup
  */
-declare module '*.less' {
-  const content: { [className: string]: string }
-  export default content
-}
+// declare module '*.less' {
+//   const content: { [className: string]: string }
+//   export default content
+// }
 
 interface SvgrComponent
   extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}

@@ -57,7 +57,7 @@ const dummy = [
 
 let data: any[] = []
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 7; i++) {
   data.push(...dummy)
 }
 
@@ -117,7 +117,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 1000)
   }, [])
 
   return (
@@ -169,8 +169,8 @@ const App = () => {
       </Modal>
       <div
         style={{
-          width: 1250,
-          height: '100vh'
+          width: 1400
+          // height: '100vh'
         }}
       >
         <TableSkeleton loading={loading}>
@@ -224,13 +224,12 @@ const App = () => {
             newSources={data}
             restProps={{
               bordered: true,
-              scroll: { x: 1550 },
+              scroll: { x: '100%' },
               size: 'small',
               rowKey: 'id'
             }}
           />
         </TableSkeleton>
-        hello
       </div>
     </div>
   )

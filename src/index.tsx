@@ -9,8 +9,8 @@ import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
 import ResizableTitle from './components/resizeTitle'
-import MotionBody from './components/motionBody'
-import MotionRow from './components/motionRow'
+// import MotionBody from './components/motionBody'
+// import MotionRow from './components/motionRow'
 import styled from 'styled-components'
 
 export interface ComponentExposeState {
@@ -36,7 +36,7 @@ interface enhanceTableInterface<IRowData = any> {
   searchBy?: string
   defaultVisibleColumns?: string[]
   name: string
-  printHepler?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
+  printHelper?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
   restProps?: TableProps<IRowData>
   headerClassName?: string
   actionColumnProps?: any
@@ -280,7 +280,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
                 {...props.columnsVisibleControllerProps?.options}
               />
             )}
-            {props.printHepler && props.printHepler(visibleColumns)}
+            {props.printHelper && props.printHelper(visibleColumns)}
           </React.Fragment>
         </Space>
 
@@ -324,10 +324,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             header: {
               cell: ResizableTitle
             },
-            body: {
-              wrapper: MotionBody,
-              row: MotionRow
-            }
+            // body: {
+            //   wrapper: MotionBody,
+            //   row: MotionRow
+            // }
           }}
         />
       </EnhancedTableStyled>
