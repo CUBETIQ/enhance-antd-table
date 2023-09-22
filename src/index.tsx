@@ -9,6 +9,8 @@ import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
 import ResizableTitle from './components/resizeTitle'
+// import MotionBody from './components/motionBody'
+// import MotionRow from './components/motionRow'
 import styled from 'styled-components'
 
 export interface ComponentExposeState {
@@ -55,6 +57,7 @@ interface enhanceTableInterface<IRowData = any> {
     renderOwnSearchInputArgs: renderOwnSearchInputArgs
   ) => React.ReactNode
 }
+
 export interface newColumnsInterface<T = any> extends ColumnProps<T> {
   dataIndex: string
 }
