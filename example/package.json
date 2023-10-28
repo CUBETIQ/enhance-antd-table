@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ant-design": "link:../node_modules/@ant-design",
-    "@cubetiq/enhance-antd-table": "^2.0.0",
+    "@cubetiq/enhance-antd-table": "^2.2.0",
     "@testing-library/jest-dom": "link:../node_modules/@testing-library/jest-dom",
     "@testing-library/react": "link:../node_modules/@testing-library/react",
     "@testing-library/user-event": "link:../node_modules/@testing-library/user-event",

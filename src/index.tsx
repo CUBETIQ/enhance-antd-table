@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react'
-import PropTypes from 'prop-types'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
@@ -337,14 +336,6 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
 
 EnhanceAntdTable.defaultProps = {
   searchBy: 'name'
-}
-
-/**
- * General component description in JSDoc format. Markdown is *supported*.
- */
-EnhanceAntdTable.propTypes = {
-  /** table name. */
-  name: PropTypes.string.isRequired
 }
 
 export { TableSkeleton }
