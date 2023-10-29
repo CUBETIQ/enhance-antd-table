@@ -19,7 +19,7 @@ const TableProvider: React.FC<React.PropsWithChildren<TableContextProps>> = (
         tableRef
       }}
     >
-      {props.children}
+      {props?.children}
     </TableContext.Provider>
   )
 }
