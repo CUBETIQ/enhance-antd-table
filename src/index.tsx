@@ -167,7 +167,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           ({
             width: column.width || 10,
             onResize: handleResize(index)
-          } as any)
+          }) as any
       }
     })
 
@@ -322,7 +322,7 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             ...props.restProps?.components,
             header: {
               cell: ResizableTitle
-            },
+            }
             // body: {
             //   wrapper: MotionBody,
             //   row: MotionRow

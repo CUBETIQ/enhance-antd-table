@@ -2,7 +2,6 @@ import react from '@vitejs/plugin-react'
 import * as path from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-// import dts from 'vite-dts'
 
 export default defineConfig(() => {
   return {
@@ -22,7 +21,10 @@ export default defineConfig(() => {
         formats: ['es', 'cjs'],
       },
       rollupOptions: {
-        external: ['react', 'react/jsx-runtime', 'react-dom']
+        external: ['react', 'react/jsx-runtime', 'react-dom'],
+        output: {
+          exports: 'named',
+        },
       },
       outDir: 'dist',
     },

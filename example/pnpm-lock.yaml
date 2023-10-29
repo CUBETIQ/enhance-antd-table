@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@cubetiq/enhance-antd-table':
-    specifier: ../dist
-    version: link:../dist
+    specifier: ../
+    version: link:..
   antd:
     specifier: ^5.10.2
     version: 5.10.2(react-dom@18.2.0)(react@18.2.0)

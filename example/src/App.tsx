@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import * as EnhanceAntdTable from '@cubetiq/enhance-antd-table'
+import { TableSkeleton, newColumnsInterface } from '@cubetiq/enhance-antd-table'
 import { Button, Modal, Tag } from 'antd'
-import EnhanceAntdTable, { newColumnsInterface, TableSkeleton } from '@cubetiq/enhance-antd-table'
 import FormCreate from './FormCreate'
 
 const layout = {
