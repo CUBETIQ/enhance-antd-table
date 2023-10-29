@@ -1,0 +1,6 @@
+src/
+.github/
+example/
+node_modules/
+.editorconfig
+renovate.json

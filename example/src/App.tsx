@@ -1,24 +1,14 @@
-// @ts-nocheck
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import EnhanceAntdTable, {
-  newColumnsInterface,
-  TableSkeleton
-} from '@cubetiq/enhance-antd-table'
-//@ts-ignore
-import { Tag, Modal, Menu, Button } from 'antd'
-//@ts-ignore
-import { v4 as uuid } from 'uuid'
-//@ts-ignore
-import { DeleteOutlined } from '@ant-design/icons/lib'
+import { Button, Modal, Tag } from 'antd'
+import EnhanceAntdTable, { newColumnsInterface, TableSkeleton } from '@cubetiq/enhance-antd-table'
 import FormCreate from './FormCreate'
-// import 'react-resizable/css/styles.css'
-import '@cubetiq/enhance-antd-table/dist/style.css'
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 18 }
 }
+
 const tailLayout = {
   wrapperCol: { offset: 0, span: 20 }
 }
@@ -111,7 +101,6 @@ const App = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const setDataSourceRef = useRef<any>()
-  //@ts-ignore
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -130,6 +119,7 @@ const App = () => {
         alignItems: 'center'
       }}
     >
+      <h1>Enhance Antd Table</h1>
       <Modal
         okButtonProps={{ type: 'primary' }}
         okText={'Yes'}
