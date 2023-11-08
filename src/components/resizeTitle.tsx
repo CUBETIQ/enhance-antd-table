@@ -3,7 +3,7 @@ import { Resizable, ResizableProps } from 'react-resizable'
 import 'react-resizable/css/styles.css'
 
 const ResizableTitle: React.FC<ResizableProps> = (props) => {
-  const { children, onResize, width, ...restProps } = props
+  const { children, onResize, width, ...restProps } = props || {}
 
   if (!width) {
     return <th {...restProps} />
@@ -11,7 +11,7 @@ const ResizableTitle: React.FC<ResizableProps> = (props) => {
 
   return (
     <Resizable width={width} height={0} onResize={onResize} {...restProps}>
-      {children}
+      <th {...restProps}>{children}</th>
     </Resizable>
   )
 }

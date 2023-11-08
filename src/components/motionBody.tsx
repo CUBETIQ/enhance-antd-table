@@ -14,12 +14,10 @@ import React from 'react'
 //   }
 // }
 
-const MotionBody: React.FC<any> = ({ children, ...props }) => {
-  return (
-   
-     <> {children}</>
- 
-  )
+const MotionBody: React.FC<any> = (props) => {
+  const { children } = props || {}
+
+  return <>{children}</>
 }
 
 export default MotionBody

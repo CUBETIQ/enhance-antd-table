@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
@@ -11,6 +12,8 @@ import ResizableTitle from './components/resizeTitle'
 // import MotionBody from './components/motionBody'
 // import MotionRow from './components/motionRow'
 import styled from 'styled-components'
+import MotionBody from './components/motionBody'
+import MotionRow from './components/motionRow'
 
 export interface ComponentExposeState {
   record?: any
@@ -323,10 +326,10 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
             header: {
               cell: ResizableTitle
             },
-            // body: {
-            //   wrapper: MotionBody,
-            //   row: MotionRow
-            // }
+            body: {
+              wrapper: MotionBody,
+              row: MotionRow
+            }
           }}
         />
       </EnhancedTableStyled>
