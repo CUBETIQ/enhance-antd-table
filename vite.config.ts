@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 // import dts from 'vite-dts'
 
+/** @type {import('vite').UserConfig} */
 export default defineConfig(() => {
   return {
     plugins: [
@@ -14,17 +15,18 @@ export default defineConfig(() => {
       react()
     ],
     build: {
+      sourcemap: true,
       lib: {
         entry: path.resolve(__dirname, 'src/index.tsx'),
         name: '@cubetiq/enhance-antd-table',
         fileName: 'index',
         sourcemap: true,
-        formats: ['es', 'cjs'],
+        formats: ['es', 'cjs']
       },
       rollupOptions: {
         external: ['react', 'react/jsx-runtime', 'react-dom']
       },
-      outDir: 'dist',
+      outDir: 'dist'
     },
     target: 'esnext'
   }

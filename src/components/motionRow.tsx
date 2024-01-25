@@ -9,10 +9,12 @@ const item = {
   }
 }
 
-const MotionRow: React.FC<any> = ({ children, ...props }) => {
+const MotionRow: React.FC<any> = (props) => {
+  //@ts-ignore
+  const { children, ...rest } = props || {}
   return (
     <motion.tr {...props} variants={item}>
-      {children}
+      <>{children}</>
     </motion.tr>
   )
 }

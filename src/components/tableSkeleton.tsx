@@ -49,7 +49,9 @@ interface tableSkeletonProps {
 const Container: React.FC<{
   loading: boolean | undefined
   children: ReactElement<any, any>
-}> = ({ loading, children }) => {
+}> = (props) => {
+  const { loading, children } = props
+
   return loading ? (
     <TableSkeletonStyled>{children}</TableSkeletonStyled>
   ) : (
@@ -58,7 +60,7 @@ const Container: React.FC<{
 }
 const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
   //@ts-ignore
-  const { loading } = props
+  const { loading, children } = props
 
   return (
     <Container loading={loading}>
@@ -68,7 +70,7 @@ const TableSkeleton: React.FC<tableSkeletonProps> = (props) => {
           height: '100%'
         }}
       >
-        <div>{loading ? <React.Fragment /> : props.children}</div>
+        <div>{loading ? <React.Fragment /> : children}</div>
       </div>
     </Container>
   )

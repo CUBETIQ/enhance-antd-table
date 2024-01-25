@@ -9,13 +9,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 
 const Main = () => {
-    return (
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
-    )
+  return (
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  )
 }
 const container =
-    document.getElementById('root') ?? document.createElement('div')
+  document.getElementById('root') ?? document.createElement('div')
 const root = createRoot(container)
 root.render(<Main />)

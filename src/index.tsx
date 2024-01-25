@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import PropTypes from 'prop-types'
+//@ts-nocheck
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { Input, Space, Table } from 'antd'
 import { ColumnProps, TableProps } from 'antd/es/table'
 import { ButtonProps } from 'antd/es/button'
@@ -9,10 +9,11 @@ import { ColumnTitle } from 'antd/es/table/interface'
 import { LiftedColumnVisibleControllerProps } from './components/columnVisibleController'
 import { TableSkeleton } from './components/tableSkeleton'
 import ResizableTitle from './components/resizeTitle'
+// import MotionBody from './components/motionBody'
+// import MotionRow from './components/motionRow'
+import styled from 'styled-components'
 import MotionBody from './components/motionBody'
 import MotionRow from './components/motionRow'
-import styled from 'styled-components'
-import TableProvider from './components/TableProvider'
 
 export interface ComponentExposeState {
   record?: any
@@ -37,7 +38,7 @@ interface enhanceTableInterface<IRowData = any> {
   searchBy?: string
   defaultVisibleColumns?: string[]
   name: string
-  printHepler?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
+  printHelper?: (visibleColumns: visibleColumnsInterface[]) => React.ReactNode
   restProps?: TableProps<IRowData>
   headerClassName?: string
   actionColumnProps?: any
@@ -94,273 +95,250 @@ const getColumnVisibleObj = (
   return obj
 }
 
-const StyledTable = styled(Table)`
-  &.e-table.initial-hidden .ant-table-content > table {
-    overflow: hidden !important;
-  }
-`
+const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
+  let {
+    actionDelete,
+    actionDetails,
+    renderOwnActionMenu,
+    actionColumnProps,
+    newColumns,
+    headerClassName = '',
+    headerStyle = {},
+    defaultVisibleColumns = []
+  } = props
+  const [dataSource, setDataSource] = useState(props.newSources)
+  const [searchValue, setSearchValue] = useState<string>('')
+  const componentRef = useRef(null)
 
-const EnhanceAntdTable: React.FC<enhanceTableInterface> = React.forwardRef(
-  (props, ref) => {
-    let {
-      actionDelete,
-      actionDetails,
-      renderOwnActionMenu,
-      actionColumnProps,
-      newColumns,
-      headerClassName = '',
-      headerStyle = {},
-      defaultVisibleColumns = []
-    } = props
-    const [dataSource, setDataSource] = useState(props.newSources)
-    const [searchValue, setSearchValue] = useState<string>('')
+  const [defaultColumns, setDefaultColumns] = useState<
+    Array<newColumnsInterface>
+  >([])
 
-    const [defaultColumns, setDefaultColumns] = useState<
-      Array<newColumnsInterface>
-    >([])
+  useEffect(() => {
+    const getAdditionalColumns = () => {
+      let additionalColumns: any[] = []
 
-    useEffect(() => {
-      const getAdditionalColumns = () => {
-        let additionalColumns: any[] = []
+      if (actionDelete || actionDetails || renderOwnActionMenu) {
+        additionalColumns.push({
+          title: 'Action',
+          ...actionColumnProps,
+          dataIndex: actionDataIndex,
+          key: actionDataIndex,
 
-        if (actionDelete || actionDetails || renderOwnActionMenu) {
-          additionalColumns.push({
-            title: 'Action',
-            ...actionColumnProps,
-            dataIndex: actionDataIndex,
-            key: actionDataIndex,
-
-            render: (_: any, record: any, index: number) => {
-              const stateToExpose = {
-                record,
-                index,
-                setDataSource
-              }
-
-              return renderOwnActionMenu ? (
-                renderOwnActionMenu(stateToExpose)
-              ) : (
-                <ActionMenu
-                  delete={actionDelete && actionDelete(stateToExpose)}
-                  detail={actionDetails && actionDetails(stateToExpose)}
-                />
-              )
+          render: (_: any, record: any, index: number) => {
+            const stateToExpose = {
+              record,
+              index,
+              setDataSource
             }
-          })
-        }
 
-        return additionalColumns
+            return renderOwnActionMenu ? (
+              renderOwnActionMenu(stateToExpose)
+            ) : (
+              <ActionMenu
+                delete={actionDelete && actionDelete(stateToExpose)}
+                detail={actionDetails && actionDetails(stateToExpose)}
+              />
+            )
+          }
+        })
       }
 
-      let result = [...(newColumns || []), ...getAdditionalColumns()]
+      return additionalColumns
+    }
 
-      const handleResize =
-        (index: any) =>
-        (e: any, { size }: any) => {
-          setDefaultColumns((old: any) => {
-            const nextColumns = [...old]
-            nextColumns[index] = {
-              ...nextColumns[index],
-              width: size.width
-            }
-            return nextColumns
-          })
-        }
+    let result = [...(newColumns || []), ...getAdditionalColumns()]
 
-      result = result.map((item, index) => {
-        return {
-          ...item,
-
-          onHeaderCell: (column: any) =>
-            ({
-              width: column.width || 10,
-              onResize: handleResize(index)
-            } as any)
-        }
-      })
-
-      setDefaultColumns(result)
-    }, [
-      dataSource,
-      renderOwnActionMenu,
-      actionDetails,
-      actionColumnProps,
-      actionDelete,
-      newColumns
-    ])
-
-    const columnsVisibleConfigKey = useMemo(
-      () => tableNamePrefix + props.name,
-      []
-    )
-
-    const getVisibleColumns = () => {
-      let userColumnsVisibleConfig: any = localStorage.getItem(
-        columnsVisibleConfigKey
-      )
-      let newColumnsVisible: visibleColumnsInterface[] = []
-      if (userColumnsVisibleConfig) {
-        userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
-        newColumnsVisible = defaultColumns.map((item) =>
-          getColumnVisibleObj(
-            item,
-            userColumnsVisibleConfig.some(
-              (userColDataIndex: string) => userColDataIndex === item.dataIndex
-            )
-          )
-        )
-      } else {
-        if (defaultVisibleColumns.length > 0) {
-          defaultColumns.forEach((item) => {
-            const foundItem = defaultVisibleColumns.some(
-              (d) => d == item.dataIndex
-            )
-
-            let newColumn = foundItem
-              ? getColumnVisibleObj(item, true)
-              : getColumnVisibleObj(item, false)
-
-            newColumnsVisible.push(newColumn)
-          })
-        } else {
-          newColumnsVisible = defaultColumns.map((item) =>
-            getColumnVisibleObj(item)
-          )
-        }
+    const handleResize =
+      (index: any) =>
+      (e: any, { size }: any) => {
+        setDefaultColumns((old: any) => {
+          const nextColumns = [...old]
+          nextColumns[index] = {
+            ...nextColumns[index],
+            width: size.width
+          }
+          return nextColumns
+        })
       }
 
-      return newColumnsVisible
-    }
+    result = result.map((item, index) => {
+      return {
+        ...item,
 
-    const [visibleColumns, setVisibleColumns] = useState<
-      visibleColumnsInterface[]
-    >(getVisibleColumns())
-
-    useEffect(() => {
-      let newColumnsVisible = getVisibleColumns()
-
-      setVisibleColumns(newColumnsVisible)
-    }, [columnsVisibleConfigKey, defaultColumns])
-
-    useEffect(() => {
-      setDataSource(props.newSources)
-    }, [props.newSources])
-
-    let tableHeaderStyle = {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginBottom: 10,
-      flexWrap: 'wrap',
-      ...headerStyle
-    }
-
-    let columnsResult = defaultColumns.filter((item) => {
-      return visibleColumns.some((visibleCol) => {
-        let a = visibleCol.dataIndex == item.dataIndex
-
-        return a && visibleCol.visible
-      })
+        onHeaderCell: (column: any) =>
+          ({
+            width: column.width || 10,
+            onResize: handleResize(index)
+          } as any)
+      }
     })
 
-    const defaultTableProps: any = {
-      ...props.restProps,
-      className: `e-table initial-hidden ${props.restProps?.className || ''}`,
-      ref
+    setDefaultColumns(result)
+  }, [
+    dataSource,
+    renderOwnActionMenu,
+    actionDetails,
+    actionColumnProps,
+    actionDelete,
+    newColumns
+  ])
+
+  const columnsVisibleConfigKey = useMemo(
+    () => tableNamePrefix + props.name,
+    []
+  )
+
+  const getVisibleColumns = () => {
+    let userColumnsVisibleConfig: any = localStorage.getItem(
+      columnsVisibleConfigKey
+    )
+    let newColumnsVisible: visibleColumnsInterface[] = []
+    if (userColumnsVisibleConfig) {
+      userColumnsVisibleConfig = JSON.parse(userColumnsVisibleConfig)
+      newColumnsVisible = defaultColumns.map((item) =>
+        getColumnVisibleObj(
+          item,
+          userColumnsVisibleConfig.some(
+            (userColDataIndex: string) => userColDataIndex === item.dataIndex
+          )
+        )
+      )
+    } else {
+      if (defaultVisibleColumns.length > 0) {
+        defaultColumns.forEach((item) => {
+          const foundItem = defaultVisibleColumns.some(
+            (d) => d == item.dataIndex
+          )
+
+          let newColumn = foundItem
+            ? getColumnVisibleObj(item, true)
+            : getColumnVisibleObj(item, false)
+
+          newColumnsVisible.push(newColumn)
+        })
+      } else {
+        newColumnsVisible = defaultColumns.map((item) =>
+          getColumnVisibleObj(item)
+        )
+      }
     }
 
-    return (
-      <React.Fragment>
-        <div
-          style={tableHeaderStyle}
-          className={` e-tableHeader ` + headerClassName}
+    return newColumnsVisible
+  }
+
+  const [visibleColumns, setVisibleColumns] = useState<
+    visibleColumnsInterface[]
+  >(getVisibleColumns())
+
+  useEffect(() => {
+    let newColumnsVisible = getVisibleColumns()
+
+    setVisibleColumns(newColumnsVisible)
+  }, [columnsVisibleConfigKey, defaultColumns])
+
+  useEffect(() => {
+    setDataSource(props.newSources)
+  }, [props.newSources])
+
+  let tableHeaderStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    flexWrap: 'wrap',
+    ...headerStyle
+  }
+
+  let columnsResult = defaultColumns.filter((item) => {
+    return visibleColumns.some((visibleCol) => {
+      let a = visibleCol.dataIndex == item.dataIndex
+
+      return a && visibleCol.visible
+    })
+  })
+
+  return (
+    <React.Fragment>
+      <div
+        style={tableHeaderStyle}
+        className={` e-tableHeader ` + headerClassName}
+      >
+        <Space
+          style={{
+            flexWrap: 'wrap'
+          }}
         >
-          <Space
+          <React.Fragment>
+            {props.renderCreateButton &&
+              props.renderCreateButton({
+                setDataSource
+              })}
+
+            {props.columnsVisibleControllerProps?.show && (
+              <ColumnVisibleController
+                tableName={tableNamePrefix + props.name}
+                setVisibleColumns={setVisibleColumns}
+                visibleColumns={visibleColumns}
+                {...props.columnsVisibleControllerProps?.options}
+              />
+            )}
+            {props.printHelper && props.printHelper(visibleColumns)}
+          </React.Fragment>
+        </Space>
+
+        {props.renderOwnSearchInput ? (
+          props.renderOwnSearchInput({
+            setDataSource
+          })
+        ) : (
+          <div
             style={{
-              flexWrap: 'wrap'
+              marginLeft: 'auto'
             }}
           >
-            <React.Fragment>
-              {props.renderCreateButton &&
-                props.renderCreateButton({
-                  setDataSource
-                })}
-
-              {props.columnsVisibleControllerProps?.show && (
-                <ColumnVisibleController
-                  tableName={tableNamePrefix + props.name}
-                  setVisibleColumns={setVisibleColumns}
-                  visibleColumns={visibleColumns}
-                  {...props.columnsVisibleControllerProps?.options}
-                />
-              )}
-              {props.printHepler && props.printHepler(visibleColumns)}
-            </React.Fragment>
-          </Space>
-
-          {props.renderOwnSearchInput ? (
-            props.renderOwnSearchInput({
-              setDataSource
-            })
-          ) : (
-            <div
-              style={{
-                marginLeft: 'auto'
-              }}
-            >
-              <Input
-                placeholder='Search'
-                value={searchValue}
-                onChange={(e) => {
-                  const currentSearchValue = e.target.value
-                  setSearchValue(currentSearchValue)
-                  const filteredData =
-                    props.newSources &&
-                    props.newSources.filter((entry) => {
-                      let lowerName = entry.name.toLocaleLowerCase()
-                      let valueSearch = currentSearchValue.toLocaleLowerCase()
-                      return lowerName.includes(valueSearch)
-                    })
-                  setDataSource(filteredData)
-                }}
-              />
-            </div>
-          )}
-        </div>
-
-        <EnhancedTableStyled>
-          <TableProvider tableRef={ref as any}>
-            <StyledTable
-              {...defaultTableProps}
-              dataSource={dataSource}
-              columns={columnsResult}
-              components={{
-                ...props.restProps?.components,
-                header: {
-                  cell: ResizableTitle
-                },
-                body: {
-                  wrapper: MotionBody,
-                  row: MotionRow
-                }
+            <Input
+              placeholder='Search'
+              value={searchValue}
+              onChange={(e) => {
+                const currentSearchValue = e.target.value
+                setSearchValue(currentSearchValue)
+                const filteredData =
+                  props.newSources &&
+                  props.newSources.filter((entry) => {
+                    let lowerName = entry.name.toLocaleLowerCase()
+                    let valueSearch = currentSearchValue.toLocaleLowerCase()
+                    return lowerName.includes(valueSearch)
+                  })
+                setDataSource(filteredData)
               }}
             />
-          </TableProvider>
-        </EnhancedTableStyled>
-      </React.Fragment>
-    )
-  }
-)
+          </div>
+        )}
+      </div>
+
+      <EnhancedTableStyled ref={componentRef}>
+        <Table
+          {...props.restProps}
+          dataSource={dataSource}
+          columns={columnsResult}
+          components={{
+            header: {
+              cell: ResizableTitle
+            },
+            body: {
+              wrapper: MotionBody,
+              row: MotionRow
+            },
+            ...props.restProps?.components
+          }}
+        />
+      </EnhancedTableStyled>
+    </React.Fragment>
+  )
+}
 
 EnhanceAntdTable.defaultProps = {
   searchBy: 'name'
-}
-
-/**
- * General component description in JSDoc format. Markdown is *supported*.
- */
-EnhanceAntdTable.propTypes = {
-  /** table name. */
-  name: PropTypes.string.isRequired
 }
 
 export { TableSkeleton }

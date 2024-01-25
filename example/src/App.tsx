@@ -12,8 +12,8 @@ import { v4 as uuid } from 'uuid'
 //@ts-ignore
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import FormCreate from './FormCreate'
-// import 'react-resizable/css/styles.css'
-import '@cubetiq/enhance-antd-table/dist/style.css'
+import 'react-resizable/css/styles.css'
+import '@cubetiq/enhance-antd-table/style.css'
 
 const layout = {
   labelCol: { span: 4 },
@@ -57,7 +57,7 @@ const dummy = [
 
 let data: any[] = []
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 7; i++) {
   data.push(...dummy)
 }
 
@@ -72,7 +72,8 @@ const columns: Array<newColumnsInterface> = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    width: 200
   },
   {
     title: 'Age',
@@ -88,7 +89,6 @@ const columns: Array<newColumnsInterface> = [
     title: 'Tags',
     key: 'tags',
     dataIndex: 'tags',
-
     render: (tags: any) => (
       <div>
         {tags.map((tag: any, index: number) => {
@@ -117,7 +117,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 1000)
   }, [])
 
   return (
@@ -169,6 +169,7 @@ const App = () => {
       </Modal>
       <div
         style={{
+          width: 1400,
           height: '100vh'
         }}
       >
@@ -223,13 +224,12 @@ const App = () => {
             newSources={data}
             restProps={{
               bordered: true,
-              scroll: { x: 1550 },
+              scroll: { x: '100%' },
               size: 'small',
               rowKey: 'id'
             }}
           />
         </TableSkeleton>
-        hello
       </div>
     </div>
   )
