@@ -322,14 +322,14 @@ const EnhanceAntdTable: React.FC<enhanceTableInterface> = (props) => {
           dataSource={dataSource}
           columns={columnsResult}
           components={{
-            ...props.restProps?.components,
             header: {
               cell: ResizableTitle
             },
             body: {
               wrapper: MotionBody,
               row: MotionRow
-            }
+            },
+            ...props.restProps?.components
           }}
         />
       </EnhancedTableStyled>
