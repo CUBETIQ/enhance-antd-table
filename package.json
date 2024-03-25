@@ -90,7 +90,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
     "@types/styled-components": "^5.1.26",
-    "antd": "5.9.2",
+    "antd": "5.15.4",
     "react-resizable": "^3.0.5",
     "styled-components": "^6.0.8",
     "uuid": "^9.0.0"
